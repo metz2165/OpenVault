@@ -82,39 +82,92 @@
     letter-spacing: 1.5px;
   }
 
-  /* --- SIDEBAR NAV --- */
-  .layout { display: flex; gap: 48px; align-items: flex-start; }
-  .sidebar {
+  /* --- DIRECTORY DROPDOWN NAV --- */
+  .layout { display: block; }
+  .content { padding-bottom: 120px; }
+
+  .directory {
     position: sticky;
-    top: 24px;
-    width: 220px;
-    flex-shrink: 0;
-    padding-top: 8px;
+    top: 0;
+    z-index: 100;
+    margin-bottom: 32px;
   }
-  .sidebar nav { display: flex; flex-direction: column; gap: 2px; }
-  .sidebar a {
-    font-size: 13px;
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 4px 12px;
-    border-left: 2px solid transparent;
-    transition: all 0.15s;
+
+  .directory-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-sm);
   }
-  .sidebar a:hover { color: var(--text); border-left-color: var(--border); }
-  .sidebar a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
-  .sidebar .nav-section {
+  .directory-toggle .arrow {
+    font-size: 10px;
+    transition: transform 0.2s;
+  }
+  .directory:hover .directory-toggle,
+  .directory-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+  }
+  .directory:hover .directory-toggle .arrow {
+    transform: rotate(180deg);
+  }
+
+  .directory-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 8px 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: all 0.2s ease;
+  }
+  .directory:hover .directory-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .directory-menu .nav-section {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--text-muted);
-    padding: 16px 12px 4px;
+    padding: 10px 16px 4px;
     font-weight: 600;
+    display: block;
   }
-  .content { flex: 1; min-width: 0; padding-bottom: 120px; }
-
-  @media (max-width: 900px) {
-    .layout { flex-direction: column; }
-    .sidebar { position: static; width: 100%; }
+  .directory-menu .nav-section:first-child {
+    padding-top: 4px;
+  }
+  .directory-menu a {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 5px 16px 5px 24px;
+    transition: all 0.15s;
+  }
+  .directory-menu a:hover {
+    color: var(--accent);
+    background: var(--accent-light);
   }
 
   /* --- HEADINGS --- */
@@ -307,9 +360,10 @@
 <div class="page">
 <div class="layout">
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <nav>
+<!-- DIRECTORY DROPDOWN -->
+<div class="directory">
+  <div class="directory-toggle">Directory <span class="arrow">&#9660;</span></div>
+  <nav class="directory-menu">
     <span class="nav-section">Foundation</span>
     <a href="#overview">Brain-Vault Analogy</a>
     <a href="#folders">Folder Reference</a>
@@ -324,7 +378,7 @@
     <span class="nav-section">Reference</span>
     <a href="#revision-log">Revision Log</a>
   </nav>
-</aside>
+</div>
 
 <!-- CONTENT -->
 <main class="content">
