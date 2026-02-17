@@ -1,0 +1,44 @@
+/* =============================================
+   OpenVault — Responsive Overrides
+   Loaded AFTER the inline <style> block.
+   Only contains media-query rules so desktop
+   rendering is completely unaffected.
+   ============================================= */
+
+/* ---- Tablet / small laptop (≤ 768px) ---- */
+@media (max-width: 768px) {
+  .hero { padding: 56px 20px 44px; margin-bottom: 36px; }
+  .hero h1 { font-size: 44px; }
+  .hero-subtitle { font-size: 16px; }
+
+  h2 { font-size: 28px; margin: 48px 0 16px; }
+}
+
+/* ---- Phone (≤ 480px) ---- */
+@media (max-width: 480px) {
+  .page { padding: 0 14px; }
+
+  .hero { padding: 40px 14px 32px; margin-bottom: 28px; }
+  .hero-emoji { font-size: 40px; margin-bottom: 10px; }
+  .hero h1 { font-size: 32px; letter-spacing: -0.5px; }
+  .hero-domain { font-size: 12px; }
+  .hero-subtitle { font-size: 14px; margin-bottom: 14px; }
+  .hero-version { font-size: 11px; }
+
+  h2 { font-size: 24px; margin: 36px 0 14px; padding-top: 18px; }
+  h3 { font-size: 16px; margin: 24px 0 8px; }
+  h4 { font-size: 13px; }
+
+  .folder-header { flex-wrap: wrap; gap: 6px; }
+
+  pre { padding: 14px 12px; font-size: 12px; line-height: 1.6; }
+
+  thead th { padding: 8px 10px; font-size: 11px; }
+  tbody td { padding: 8px 10px; font-size: 13px; }
+
+  .callout { padding: 12px 14px; font-size: 13px; }
+
+  ul, ol { margin-left: 16px; }
+
+  .footer { padding: 24px 14px; margin-top: 48px; }
+}
