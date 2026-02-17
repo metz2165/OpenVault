@@ -18,7 +18,7 @@ The vault is designed so that both humans and AI agents can navigate it naturall
 
 The system is split into two distinct locations with different responsibilities. The Obsidian Vault is the brain — it remembers, tracks, and documents rules and processes. The Projects folder is the body — it holds the actual work product, source code, and project-specific documentation that gets pushed to GitHub.
 
-![OpenVault Diagram](doc_expand/word/media/image1.png)
+![OpenVault Diagram](assets/architecture-brain-body.svg)
 
 ## Why Separate Them?
 
