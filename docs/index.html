@@ -54,6 +54,47 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 10px 22px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .header-brain {
+    font-size: 24px;
+    line-height: 1;
+  }
+  .header-title-group {
+    text-align: center;
+    min-width: 0;
+  }
+  .header-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 30px;
+    letter-spacing: -0.6px;
+    line-height: 1.1;
+    color: #1B3A5C;
+    margin: 0;
+  }
+  .header-links {
+    margin-top: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .header-links a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-light);
+  }
+  .header-links a:hover { border-color: var(--accent); }
+  .header-directory-wrap {
     display: flex;
     justify-content: flex-end;
   }
@@ -144,18 +185,12 @@
   }
   .hero-domain a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-light); }
   .hero-domain a:hover { border-color: var(--accent); }
-  .hero-version {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
-
   .content { min-width: 0; padding-bottom: 120px; }
 
   @media (max-width: 900px) {
-    .header-inner { padding: 8px 16px; }
+    .header-inner { padding: 8px 16px; gap: 10px; }
+    .header-title { font-size: 24px; }
+    .header-links { font-size: 10px; }
     .directory-menu { width: min(315px, calc(100vw - 32px)); }
   }
 
@@ -419,27 +454,34 @@
 
 <header class="header-bar">
   <div class="header-inner">
-    <details class="header-directory">
-      <summary class="directory-toggle" aria-label="Toggle section directory">Directory</summary>
-      <div class="directory-menu" aria-label="Section directory">
-        <nav>
-          <span class="nav-section">Foundation</span>
-          <a href="#overview">Brain-Vault Analogy</a>
-          <span class="nav-section">Architecture</span>
-          <a href="#brain-body">Brain vs Body</a>
-          <a href="#workflow">5-Step Workflow</a>
-          <span class="nav-section">Vault Structure</span>
-          <a href="#folders">Folder Reference</a>
-          <a href="#flow">Information Flow</a>
-          <span class="nav-section">Management</span>
-          <a href="#phases">Six Phases</a>
-          <a href="#tasks-spec">tasks.md Spec</a>
-          <a href="#build-ops">Build vs Ops</a>
-          <span class="nav-section">Reference</span>
-          <a href="#revision-log">Revision Log</a>
-        </nav>
-      </div>
-    </details>
+    <div class="header-brand" aria-hidden="true"><span class="header-brain">🧠</span></div>
+    <div class="header-title-group">
+      <p class="header-title">OpenVault</p>
+      <p class="header-links"><a href="https://open-vault.dev">open-vault.dev</a> · <a href="https://github.com/open-vault/OpenVault">GitHub Repo</a></p>
+    </div>
+    <div class="header-directory-wrap">
+      <details class="header-directory">
+        <summary class="directory-toggle" aria-label="Toggle section directory">Directory</summary>
+        <div class="directory-menu" aria-label="Section directory">
+          <nav>
+            <span class="nav-section">Foundation</span>
+            <a href="#overview">Brain-Vault Analogy</a>
+            <span class="nav-section">Architecture</span>
+            <a href="#brain-body">Brain vs Body</a>
+            <a href="#workflow">5-Step Workflow</a>
+            <span class="nav-section">Vault Structure</span>
+            <a href="#folders">Folder Reference</a>
+            <a href="#flow">Information Flow</a>
+            <span class="nav-section">Management</span>
+            <a href="#phases">Six Phases</a>
+            <a href="#tasks-spec">tasks.md Spec</a>
+            <a href="#build-ops">Build vs Ops</a>
+            <span class="nav-section">Reference</span>
+            <a href="#revision-log">Revision Log</a>
+          </nav>
+        </div>
+      </details>
+    </div>
   </div>
 </header>
 
@@ -448,7 +490,6 @@
   <span class="hero-emoji">🧠</span>
   <h1>OpenVault Guide</h1>
   <span class="hero-domain"><a href="https://open-vault.dev">open-vault.dev</a> · <a href="https://github.com/open-vault/OpenVault">GitHub Repo</a></span>
-  <span class="hero-version">Revision 0 · February 2026</span>
 </div>
 
 <div class="page">
