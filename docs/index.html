@@ -425,11 +425,12 @@
         <nav>
           <span class="nav-section">Foundation</span>
           <a href="#overview">Brain-Vault Analogy</a>
-          <a href="#folders">Folder Reference</a>
-          <a href="#flow">Information Flow</a>
           <span class="nav-section">Architecture</span>
           <a href="#brain-body">Brain vs Body</a>
           <a href="#workflow">5-Step Workflow</a>
+          <span class="nav-section">Vault Structure</span>
+          <a href="#folders">Folder Reference</a>
+          <a href="#flow">Information Flow</a>
           <span class="nav-section">Management</span>
           <a href="#phases">Six Phases</a>
           <a href="#tasks-spec">tasks.md Spec</a>
@@ -460,6 +461,75 @@
 <p>This Obsidian vault serves as the central nervous system for OpenClaw — an AI orchestration platform that manages tasks, automations, and knowledge. Each folder in the vault maps to a functional region of the human brain, creating an intuitive architecture for how information flows, gets processed, stored, and acted upon.</p>
 
 <p>The vault is designed so that both humans and AI agents can navigate it naturally. Folders are numbered (000–130) to maintain consistent sort order across file browsers, CLI tools, and agent file access.</p>
+
+<!-- ======== ARCHITECTURE ======== -->
+<h2 id="brain-body">Architecture: Brain vs Body</h2>
+
+<p>The system is split into two distinct locations. The Obsidian Vault is the <strong>brain</strong> — it remembers, tracks, and documents rules and processes. The Projects folder is the <strong>body</strong> — it holds the actual work product, source code, and project-specific documentation.</p>
+
+<!-- Architecture Diagram: Brain vs Body -->
+<div class="arch-diagram">
+  <div class="arch-diagram-title">Brain vs Body</div>
+  <div class="arch-diagram-subtitle">Three core parts and the connections between them</div>
+
+  <div class="arch-simple">
+    <div class="arch-simple-box arch-simple-vault">
+      <h4>Obsidian Vault</h4>
+      <div class="arch-path">~/OpenVault/</div>
+      <div class="arch-label">Brain: memory, planning, and tracking</div>
+    </div>
+
+    <div class="arch-connection">&#8596;</div>
+
+    <div class="arch-simple-box arch-simple-openclaw">
+      <h4>OpenClaw</h4>
+      <div class="arch-path">Agent Layer</div>
+      <div class="arch-label">Reads vault context and works in projects</div>
+    </div>
+
+    <div class="arch-connection">&#8596;</div>
+
+    <div class="arch-simple-box arch-simple-projects">
+      <h4>Projects</h4>
+      <div class="arch-path">~/Projects/</div>
+      <div class="arch-label">Body: source code, docs, and delivery</div>
+    </div>
+  </div>
+
+</div><!-- /arch-diagram -->
+
+<h3>Why Separate?</h3>
+<p>Mixing orchestration files with source code creates git merge conflicts, bloated vaults, Obsidian indexing thousands of code files, and agents accidentally editing source code. The separation keeps each system clean and purpose-built.</p>
+
+<h3>Why Obsidian Vault?</h3>
+<p>Keeping this system in Obsidian lowers cognitive energy by making important context easy to scan instead of forcing repeated deep searches through code repositories. Visual interaction also improves decision speed: linked notes, graph-style relationships, and structured dashboards help both humans and agents see dependencies at a glance. The vault encourages lightweight capture and fast retrieval, which reduces context-switching fatigue during execution-heavy work. It also creates a calm planning space separated from implementation noise, so strategy and delivery can each stay focused. Over time, this separation improves consistency, reduces mental overhead, and supports more sustainable day-to-day operations.</p>
+
+<h3>The Two Locations</h3>
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>Obsidian Vault (Brain)</th><th>Projects Folder (Body)</th></tr></thead>
+<tbody>
+<tr><td><strong>Location</strong></td><td><code>~/OpenVault/</code></td><td><code>~/Projects/</code></td></tr>
+<tr><td><strong>Purpose</strong></td><td>Memory, orchestration, rules, tracking, knowledge</td><td>Source code, project docs, configs, GitHub repos</td></tr>
+<tr><td><strong>Git</strong></td><td>Vault backup repo (private)</td><td>Each project is its own GitHub repo</td></tr>
+<tr><td><strong>OpenClaw</strong></td><td>Reads for HOW to work (skills, prompts, routines)</td><td>Reads for WHAT to work on (code, docs, issues)</td></tr>
+<tr><td><strong>Bridge</strong></td><td><code>tasks.md</code> links to GitHub</td><td><code>CLAUDE.md</code> and <code>docs/</code> provide context</td></tr>
+</tbody></table></div>
+
+<div class="callout-warm callout">
+<strong>The Bridge: tasks.md</strong> — The only project file inside the vault. One per active project. Contains task status, priority, assignee, due dates, and GitHub issue links. Just enough for the Dashboard to aggregate, but no project-specific documentation.
+</div>
+
+
+<h3 id="workflow">The 5-Step Workflow</h3>
+
+<ol>
+<li><strong>Check the brain</strong> — Read <code>015-Dashboard</code> for active focus, scan <code>010-Projects/Active/</code> for tasks, load skills/prompts/routines</li>
+<li><strong>Go to the workbench</strong> — Navigate to <code>~/Projects/{{name}}/</code>, read <code>docs/overview.md</code>, <code>docs/workflow.md</code>, and <code>CLAUDE.md</code></li>
+<li><strong>Do the work</strong> — Operate on source files in <code>src/</code> using vault's skills and prompts. All code changes in Projects folder, never vault.</li>
+<li><strong>Update the brain</strong> — Update <code>tasks.md</code> with status changes, log in <code>110-Logs/Agent-Runs/</code>, Dashboard auto-aggregates</li>
+<li><strong>Push to GitHub</strong> — Commit and push code changes. <code>tasks.md</code> links to relevant issues and PRs.</li>
+</ol>
+
 
 <h3 id="folders">Master Folder Map</h3>
 
@@ -708,60 +778,6 @@
 <li><strong>Retirement (Deep Storage)</strong> — Completed content moves to <code>130-Archive</code></li>
 </ol>
 
-<!-- ======== ARCHITECTURE ======== -->
-<h2 id="brain-body">Architecture: Brain vs Body</h2>
-
-<p>The system is split into two distinct locations. The Obsidian Vault is the <strong>brain</strong> — it remembers, tracks, and documents rules and processes. The Projects folder is the <strong>body</strong> — it holds the actual work product, source code, and project-specific documentation.</p>
-
-<!-- Architecture Diagram: Brain vs Body -->
-<div class="arch-diagram">
-  <div class="arch-diagram-title">Brain vs Body</div>
-  <div class="arch-diagram-subtitle">Three core parts and the connections between them</div>
-
-  <div class="arch-simple">
-    <div class="arch-simple-box arch-simple-vault">
-      <h4>Obsidian Vault</h4>
-      <div class="arch-path">~/OpenVault/</div>
-      <div class="arch-label">Brain: memory, planning, and tracking</div>
-    </div>
-
-    <div class="arch-connection">&#8596;</div>
-
-    <div class="arch-simple-box arch-simple-openclaw">
-      <h4>OpenClaw</h4>
-      <div class="arch-path">Agent Layer</div>
-      <div class="arch-label">Reads vault context and works in projects</div>
-    </div>
-
-    <div class="arch-connection">&#8596;</div>
-
-    <div class="arch-simple-box arch-simple-projects">
-      <h4>Projects</h4>
-      <div class="arch-path">~/Projects/</div>
-      <div class="arch-label">Body: source code, docs, and delivery</div>
-    </div>
-  </div>
-
-</div><!-- /arch-diagram -->
-
-<h3>Why Separate?</h3>
-<p>Mixing orchestration files with source code creates git merge conflicts, bloated vaults, Obsidian indexing thousands of code files, and agents accidentally editing source code. The separation keeps each system clean and purpose-built.</p>
-
-<h3>The Two Locations</h3>
-<div class="table-wrap"><table>
-<thead><tr><th></th><th>Obsidian Vault (Brain)</th><th>Projects Folder (Body)</th></tr></thead>
-<tbody>
-<tr><td><strong>Location</strong></td><td><code>~/OpenVault/</code></td><td><code>~/Projects/</code></td></tr>
-<tr><td><strong>Purpose</strong></td><td>Memory, orchestration, rules, tracking, knowledge</td><td>Source code, project docs, configs, GitHub repos</td></tr>
-<tr><td><strong>Git</strong></td><td>Vault backup repo (private)</td><td>Each project is its own GitHub repo</td></tr>
-<tr><td><strong>OpenClaw</strong></td><td>Reads for HOW to work (skills, prompts, routines)</td><td>Reads for WHAT to work on (code, docs, issues)</td></tr>
-<tr><td><strong>Bridge</strong></td><td><code>tasks.md</code> links to GitHub</td><td><code>CLAUDE.md</code> and <code>docs/</code> provide context</td></tr>
-</tbody></table></div>
-
-<div class="callout-warm callout">
-<strong>The Bridge: tasks.md</strong> — The only project file inside the vault. One per active project. Contains task status, priority, assignee, due dates, and GitHub issue links. Just enough for the Dashboard to aggregate, but no project-specific documentation.
-</div>
-
 <h3>Project Folder Layout</h3>
 <div class="table-wrap"><table>
 <thead><tr><th>File / Subfolder</th><th>Purpose</th></tr></thead>
@@ -785,16 +801,6 @@
 <tr><td><code>docs/secrets.md</code></td><td>Environment variable names and vault paths — never credentials</td></tr>
 <tr><td><code>docs/phases/</code></td><td>Phase breakdowns: phase-1-design.md, phase-2-build.md, etc.</td></tr>
 </tbody></table></div>
-
-<h3 id="workflow">The 5-Step Workflow</h3>
-
-<ol>
-<li><strong>Check the brain</strong> — Read <code>015-Dashboard</code> for active focus, scan <code>010-Projects/Active/</code> for tasks, load skills/prompts/routines</li>
-<li><strong>Go to the workbench</strong> — Navigate to <code>~/Projects/{{name}}/</code>, read <code>docs/overview.md</code>, <code>docs/workflow.md</code>, and <code>CLAUDE.md</code></li>
-<li><strong>Do the work</strong> — Operate on source files in <code>src/</code> using vault's skills and prompts. All code changes in Projects folder, never vault.</li>
-<li><strong>Update the brain</strong> — Update <code>tasks.md</code> with status changes, log in <code>110-Logs/Agent-Runs/</code>, Dashboard auto-aggregates</li>
-<li><strong>Push to GitHub</strong> — Commit and push code changes. <code>tasks.md</code> links to relevant issues and PRs.</li>
-</ol>
 
 <!-- ======== PHASES ======== -->
 <h2 id="phases">Phases & Task Management</h2>
