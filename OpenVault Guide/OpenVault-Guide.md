@@ -349,7 +349,7 @@ Completed projects and outdated content move to 130-Archive, preserved but out o
 
 The system is split into two distinct locations with different responsibilities. The Obsidian Vault is the brain — it remembers, tracks, and documents rules and processes. The Projects folder is the body — it holds the actual work product, source code, and project-specific documentation that gets pushed to GitHub.
 
-![OpenVault Architecture](assets/architecture-diagram.png)
+![OpenVault Architecture](assets/architecture-brain-body.svg)
 
 ### Why Separate Them?
 

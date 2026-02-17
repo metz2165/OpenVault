@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 300" role="img" aria-labelledby="title desc">
+  <title id="title">OpenVault Brain vs Body Architecture</title>
+  <desc id="desc">Diagram showing OpenClaw reading and writing the Obsidian Vault, which points to the Projects Folder. tasks.md bridges planning and execution.</desc>
+
+  <defs>
+    <style>
+      .label { font: 600 18px 'DM Sans', Arial, sans-serif; fill: #1A1A18; }
+      .sub { font: 400 14px 'DM Sans', Arial, sans-serif; fill: #6B6B66; }
+      .chip { font: 500 12px 'DM Sans', Arial, sans-serif; fill: #2D5A3D; }
+      .line-label { font: 500 12px 'DM Sans', Arial, sans-serif; fill: #6B6B66; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#4F4F49" />
+    </marker>
+  </defs>
+
+  <rect x="20" y="32" width="250" height="130" rx="10" fill="#FFFFFF" stroke="#D8D7D2" stroke-width="2"/>
+  <text x="145" y="84" text-anchor="middle" class="label">OpenClaw</text>
+  <text x="145" y="112" text-anchor="middle" class="sub">AI orchestrator</text>
+  <text x="145" y="136" text-anchor="middle" class="sub">reads + updates vault</text>
+
+  <rect x="335" y="16" width="250" height="162" rx="10" fill="#F7FBF8" stroke="#2D5A3D" stroke-width="2.5"/>
+  <text x="460" y="56" text-anchor="middle" class="chip">THE BRAIN</text>
+  <text x="460" y="86" text-anchor="middle" class="label">Obsidian Vault</text>
+  <text x="460" y="114" text-anchor="middle" class="sub">memory, rules, tasks, knowledge</text>
+  <text x="460" y="138" text-anchor="middle" class="sub">skills, prompts, routines</text>
+
+  <rect x="650" y="32" width="250" height="130" rx="10" fill="#FFFFFF" stroke="#D8D7D2" stroke-width="2"/>
+  <text x="775" y="84" text-anchor="middle" class="label">Projects Folder</text>
+  <text x="775" y="112" text-anchor="middle" class="sub">source code + docs + configs</text>
+  <text x="775" y="136" text-anchor="middle" class="sub">the execution workspace</text>
+
+  <line x1="270" y1="86" x2="335" y2="86" stroke="#4F4F49" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="302" y="75" text-anchor="middle" class="line-label">reads</text>
+
+  <line x1="335" y1="114" x2="270" y2="114" stroke="#4F4F49" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="302" y="132" text-anchor="middle" class="line-label">writes</text>
+
+  <line x1="585" y1="98" x2="650" y2="98" stroke="#4F4F49" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="618" y="86" text-anchor="middle" class="line-label">points to</text>
+
+  <rect x="360" y="220" width="200" height="56" rx="8" fill="#FAFAF8" stroke="#CFCFC9" stroke-dasharray="6 5"/>
+  <text x="460" y="246" text-anchor="middle" class="label" style="font-size:16px;">tasks.md</text>
+  <text x="460" y="266" text-anchor="middle" class="sub" style="font-size:13px;">bridge between planning + execution</text>
+
+  <line x1="460" y1="178" x2="460" y2="220" stroke="#8A8A83" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+</svg>
