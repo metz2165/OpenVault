@@ -297,6 +297,188 @@
     box-shadow: var(--shadow-md);
   }
 
+  /* --- ARCHITECTURE DIAGRAM --- */
+  .arch-diagram {
+    margin: 32px 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    background: var(--surface);
+    padding: 32px 28px;
+  }
+  .arch-diagram-title {
+    text-align: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .arch-diagram-subtitle {
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+  .arch-columns {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  .arch-side {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .arch-side-header {
+    padding: 14px 18px;
+    text-align: center;
+  }
+  .arch-side-header h4 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    margin: 0 0 2px;
+  }
+  .arch-side-header .arch-path {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .arch-side-header .arch-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .arch-brain .arch-side-header {
+    background: #EFF4FA;
+    border-bottom: 1px solid #D6E3F0;
+  }
+  .arch-body .arch-side-header {
+    background: #FEF7ED;
+    border-bottom: 1px solid #F0DFC0;
+  }
+  .arch-items {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .arch-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: var(--surface-dim);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .arch-item-code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    white-space: nowrap;
+    min-width: 96px;
+  }
+  .arch-item-desc {
+    color: var(--text-secondary);
+    font-size: 12.5px;
+  }
+  .arch-body .arch-item-code {
+    color: var(--accent-warm);
+    min-width: 80px;
+  }
+
+  /* Bridge column */
+  .arch-bridge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 18px;
+    gap: 8px;
+  }
+  .arch-bridge-line {
+    width: 2px;
+    flex: 1;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--border) 0px,
+      var(--border) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    min-height: 20px;
+  }
+  .arch-bridge-box {
+    background: #FFF9EE;
+    border: 2px solid var(--accent-warm);
+    border-radius: 8px;
+    padding: 10px 14px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .arch-bridge-box code {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-warm);
+    display: block;
+  }
+  .arch-bridge-box span {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    display: block;
+  }
+  .arch-bridge-arrow {
+    font-size: 16px;
+    color: var(--text-muted);
+  }
+
+  /* Reads-for row */
+  .arch-reads-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-light);
+  }
+  .arch-reads-box {
+    text-align: center;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .arch-reads-box strong {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+  .arch-reads-brain {
+    background: #EFF4FA;
+    color: var(--text-secondary);
+  }
+  .arch-reads-brain strong { color: var(--accent); }
+  .arch-reads-body {
+    background: #FEF7ED;
+    color: var(--text-secondary);
+  }
+  .arch-reads-body strong { color: var(--accent-warm); }
+
   /* --- REVISION LOG --- */
   .revision-table td:first-child {
     font-family: 'DM Mono', monospace;
@@ -634,9 +816,88 @@
 
 <p>The system is split into two distinct locations. The Obsidian Vault is the <strong>brain</strong> — it remembers, tracks, and documents rules and processes. The Projects folder is the <strong>body</strong> — it holds the actual work product, source code, and project-specific documentation.</p>
 
-<div class="diagram-wrap">
-  <img src="assets/architecture-diagram.png" alt="OpenVault Architecture — Brain vs Body">
-</div>
+<!-- Architecture Diagram: Brain vs Body -->
+<div class="arch-diagram">
+  <div class="arch-diagram-title">Brain vs Body</div>
+  <div class="arch-diagram-subtitle">Two locations, one system — connected by tasks.md</div>
+
+  <div class="arch-columns">
+
+    <!-- BRAIN -->
+    <div class="arch-side arch-brain">
+      <div class="arch-side-header">
+        <h4>Obsidian Vault</h4>
+        <div class="arch-path">~/ObsidianVault/</div>
+        <div class="arch-label">The Brain — memory, rules, orchestration</div>
+      </div>
+      <div class="arch-items">
+        <div class="arch-item"><span class="arch-item-code">000-Inbox</span><span class="arch-item-desc">Sensory Input</span></div>
+        <div class="arch-item"><span class="arch-item-code">010-Projects</span><span class="arch-item-desc">Prefrontal Cortex</span></div>
+        <div class="arch-item"><span class="arch-item-code">015-Dashboard</span><span class="arch-item-desc">Thalamus</span></div>
+        <div class="arch-item"><span class="arch-item-code">020-Tasks</span><span class="arch-item-desc">Working Memory</span></div>
+        <div class="arch-item"><span class="arch-item-code">030-Agents</span><span class="arch-item-desc">Neural Pathways</span></div>
+        <div class="arch-item"><span class="arch-item-code">035-Priorities</span><span class="arch-item-desc">Amygdala</span></div>
+        <div class="arch-item"><span class="arch-item-code">040-Skills</span><span class="arch-item-desc">Cerebellum</span></div>
+        <div class="arch-item"><span class="arch-item-code">050-MCP</span><span class="arch-item-desc">Synapses</span></div>
+        <div class="arch-item"><span class="arch-item-code">060-Prompts</span><span class="arch-item-desc">Neocortex</span></div>
+        <div class="arch-item"><span class="arch-item-code">070-Routines</span><span class="arch-item-desc">Autonomic NS</span></div>
+        <div class="arch-item"><span class="arch-item-code">090-Knowledge</span><span class="arch-item-desc">Long-term Memory</span></div>
+        <div class="arch-item"><span class="arch-item-code">100-Context</span><span class="arch-item-desc">Identity &amp; Rules</span></div>
+        <div class="arch-item"><span class="arch-item-code">110-Logs</span><span class="arch-item-desc">Hippocampus</span></div>
+        <div class="arch-item"><span class="arch-item-code">120-Templates</span><span class="arch-item-desc">DNA / Blueprints</span></div>
+        <div class="arch-item"><span class="arch-item-code">130-Archive</span><span class="arch-item-desc">Deep Storage</span></div>
+      </div>
+    </div>
+
+    <!-- BRIDGE -->
+    <div class="arch-bridge">
+      <div class="arch-bridge-line"></div>
+      <div class="arch-bridge-arrow">&#8592;</div>
+      <div class="arch-bridge-box">
+        <code>tasks.md</code>
+        <span>The Bridge</span>
+      </div>
+      <div class="arch-bridge-arrow">&#8594;</div>
+      <div class="arch-bridge-line"></div>
+    </div>
+
+    <!-- BODY -->
+    <div class="arch-side arch-body">
+      <div class="arch-side-header">
+        <h4>Projects Folder</h4>
+        <div class="arch-path">~/Projects/</div>
+        <div class="arch-label">The Body — source code, execution, delivery</div>
+      </div>
+      <div class="arch-items">
+        <div class="arch-item"><span class="arch-item-code">src/</span><span class="arch-item-desc">Source code &amp; application logic</span></div>
+        <div class="arch-item"><span class="arch-item-code">docs/</span><span class="arch-item-desc">Project-specific documentation</span></div>
+        <div class="arch-item"><span class="arch-item-code">docs/phases/</span><span class="arch-item-desc">Phase breakdowns &amp; gate criteria</span></div>
+        <div class="arch-item"><span class="arch-item-code">docs/workflow.md</span><span class="arch-item-desc">Architecture &amp; data flow</span></div>
+        <div class="arch-item"><span class="arch-item-code">docs/tools.md</span><span class="arch-item-desc">APIs &amp; third-party services</span></div>
+        <div class="arch-item"><span class="arch-item-code">docs/data-map.md</span><span class="arch-item-desc">Schemas &amp; endpoints</span></div>
+        <div class="arch-item"><span class="arch-item-code">docs/secrets.md</span><span class="arch-item-desc">Env variable names (no creds)</span></div>
+        <div class="arch-item"><span class="arch-item-code">logs/</span><span class="arch-item-desc">Activity logs &amp; change history</span></div>
+        <div class="arch-item"><span class="arch-item-code">CLAUDE.md</span><span class="arch-item-desc">Agent context &amp; coding instructions</span></div>
+        <div class="arch-item"><span class="arch-item-code">.env.example</span><span class="arch-item-desc">Environment variable template</span></div>
+        <div class="arch-item"><span class="arch-item-code">README.md</span><span class="arch-item-desc">Standard GitHub readme</span></div>
+      </div>
+    </div>
+
+  </div><!-- /arch-columns -->
+
+  <!-- OpenClaw reads-for row -->
+  <div class="arch-reads-row">
+    <div class="arch-reads-box arch-reads-brain">
+      <strong>OpenClaw reads for</strong>
+      HOW to work — skills, prompts, routines, rules
+    </div>
+    <div class="arch-reads-box arch-reads-body">
+      <strong>OpenClaw reads for</strong>
+      WHAT to work on — code, docs, issues, phases
+    </div>
+  </div>
+
+</div><!-- /arch-diagram -->
 
 <h3>Why Separate?</h3>
 <p>Mixing orchestration files with source code creates git merge conflicts, bloated vaults, Obsidian indexing thousands of code files, and agents accidentally editing source code. The separation keeps each system clean and purpose-built.</p>
