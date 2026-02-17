@@ -441,16 +441,15 @@
   <div class="header-inner">
     <div class="header-brand">
       <div class="header-brand-main">
-        <span class="header-brain">🧠</span><span class="header-title">OpenVault</span>
+        <span class="header-brain">🧠</span><span class="header-title" id="header-title-text">OpenVault</span>
       </div>
-      <a class="header-github" href="https://github.com/metz2165/OpenVault">GitHub</a>
     </div>
     <div class="header-controls">
       <label class="header-page-label" for="page-select">Page</label>
       <select class="header-page-select" id="page-select" aria-label="Select a page">
-        <option value="overview">Overview</option>
-        <option value="vault">Obsidian Vault</option>
-        <option value="project">Project Folder</option>
+        <option value="overview">OpenVault</option>
+        <option value="vault">Obsidian Vault (Brain)</option>
+        <option value="project">Project Folder (Body)</option>
       </select>
     </div>
   </div>
@@ -458,8 +457,7 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-title-line"><span class="hero-emoji">🧠</span><h1>OpenVault</h1></div>
-  <span class="hero-domain"><a href="https://open-vault.dev">open-vault.dev</a></span>
+  <div class="hero-title-line"><span class="hero-emoji">🧠</span><h1 id="hero-title-text">OpenVault</h1></div>
 </div>
 
 <div class="page-shell">
@@ -984,21 +982,32 @@ Phase: 🔵 3-Dev | ✅✅🔵⬜⬜⬜
 </div>
 
 <div class="footer">
-  <p>🧠 <strong>OpenVault Guide</strong> · <a href="https://open-vault.dev">open-vault.dev</a> · Version 5.0</p>
+  <p>🧠 <strong>OpenVault Guide</strong> · Version 5.0</p>
 </div>
 
 <script>
   (() => {
     const pageSelect = document.getElementById('page-select');
+    const headerTitleText = document.getElementById('header-title-text');
+    const heroTitleText = document.getElementById('hero-title-text');
     const pages = Array.from(document.querySelectorAll('.content-page'));
+    const pageTitles = {
+      overview: 'OpenVault',
+      vault: 'Obsidian Vault (Brain)',
+      project: 'Project Folder (Body)'
+    };
 
     const setPage = (pageKey) => {
       pages.forEach((page) => page.classList.toggle('is-active', page.dataset.page === pageKey));
       pageSelect.value = pageKey;
+      const nextTitle = pageTitles[pageKey] || pageTitles.overview;
+      headerTitleText.textContent = nextTitle;
+      heroTitleText.textContent = nextTitle;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     pageSelect.addEventListener('change', () => setPage(pageSelect.value));
+    setPage(pageSelect.value);
   })();
 </script>
 
