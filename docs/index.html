@@ -61,6 +61,12 @@
   }
   .header-brand {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .header-brand-main {
+    display: flex;
     align-items: center;
     gap: 8px;
   }
@@ -76,6 +82,14 @@
     color: #1B3A5C;
     margin: 0;
   }
+  .header-github {
+    font-size: 12px;
+    line-height: 1.2;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-light);
+  }
+  .header-github:hover { border-color: var(--accent); }
   .header-controls {
     display: flex;
     align-items: center;
@@ -142,6 +156,8 @@
     .header-inner { padding: 8px 16px; gap: 10px; }
     .header-title { font-size: 20px; line-height: 34px; }
     .header-brain { font-size: 20px; line-height: 34px; }
+    .header-brand { gap: 0; }
+    .header-github { font-size: 11px; }
     .header-page-label { display: none; }
     .header-page-select {
       padding: 6px 12px;
@@ -424,7 +440,10 @@
 <header class="header-bar">
   <div class="header-inner">
     <div class="header-brand">
-      <span class="header-brain">🧠</span><span class="header-title">OpenVault</span>
+      <div class="header-brand-main">
+        <span class="header-brain">🧠</span><span class="header-title">OpenVault</span>
+      </div>
+      <a class="header-github" href="https://github.com/metz2165/OpenVault">GitHub</a>
     </div>
     <div class="header-controls">
       <label class="header-page-label" for="page-select">Page</label>
@@ -440,7 +459,7 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-title-line"><span class="hero-emoji">🧠</span><h1>OpenVault</h1></div>
-  <span class="hero-domain"><a href="https://open-vault.dev">open-vault.dev</a> · <a href="https://github.com/metz2165/OpenVault">GitHub Repo</a></span>
+  <span class="hero-domain"><a href="https://open-vault.dev">open-vault.dev</a></span>
 </div>
 
 <div class="page-shell">
