@@ -5,40 +5,162 @@
    rendering is completely unaffected.
    ============================================= */
 
-/* ---- Tablet / small laptop (≤ 768px) ---- */
-@media (max-width: 768px) {
-  .hero { padding: 56px 20px 44px; margin-bottom: 36px; }
-  .hero h1 { font-size: 44px; }
+/* ---- Tablet / small laptop (≤ 900px) ---- */
+@media (max-width: 900px) {
+  .hero { padding: 60px 20px 48px; margin-bottom: 40px; }
+  .hero h1 { font-size: 48px; }
   .hero-subtitle { font-size: 16px; }
 
   h2 { font-size: 28px; margin: 48px 0 16px; }
+
+  /* Tables: ensure horizontal scroll works smoothly */
+  .table-wrap { -webkit-overflow-scrolling: touch; }
 }
 
-/* ---- Phone (≤ 480px) ---- */
-@media (max-width: 480px) {
+/* ---- Large phone / small tablet (≤ 768px) ---- */
+@media (max-width: 768px) {
+  .page { padding: 0 16px; }
+
+  .hero { padding: 52px 20px 40px; margin-bottom: 36px; }
+  .hero-emoji { font-size: 44px; margin-bottom: 12px; }
+  .hero h1 { font-size: 40px; letter-spacing: -0.8px; }
+  .hero-subtitle { font-size: 15px; margin-bottom: 16px; }
+
+  h2 { font-size: 26px; margin: 44px 0 14px; }
+  h3 { font-size: 17px; }
+
+  pre { padding: 16px; font-size: 12.5px; }
+
+  .folder-header { flex-wrap: wrap; gap: 8px; }
+
+  /* Sidebar: horizontal pill layout */
+  .sidebar nav { flex-direction: row; flex-wrap: wrap; gap: 4px 8px; }
+  .sidebar a {
+    padding: 6px 12px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    font-size: 13px;
+  }
+  .sidebar a:hover { border-left-color: transparent; border-bottom-color: var(--border); }
+  .sidebar a.active { border-left-color: transparent; border-bottom-color: var(--accent); }
+  .directory-menu { padding: 8px; }
+  .nav-section { padding: 10px 10px 4px; width: 100%; }
+}
+
+/* ---- Phone (≤ 600px) ---- */
+@media (max-width: 600px) {
+  body { font-size: 15px; }
   .page { padding: 0 14px; }
 
+  /* Hero */
   .hero { padding: 40px 14px 32px; margin-bottom: 28px; }
-  .hero-emoji { font-size: 40px; margin-bottom: 10px; }
+  .hero-emoji { font-size: 36px; margin-bottom: 10px; }
   .hero h1 { font-size: 32px; letter-spacing: -0.5px; }
-  .hero-domain { font-size: 12px; }
-  .hero-subtitle { font-size: 14px; margin-bottom: 14px; }
+  .hero-domain { font-size: 12px; margin-bottom: 14px; }
+  .hero-subtitle { font-size: 14px; margin-bottom: 14px; line-height: 1.5; }
   .hero-version { font-size: 11px; }
 
+  /* Headings */
   h2 { font-size: 24px; margin: 36px 0 14px; padding-top: 18px; }
   h3 { font-size: 16px; margin: 24px 0 8px; }
   h4 { font-size: 13px; }
 
+  /* Folder headers */
   .folder-header { flex-wrap: wrap; gap: 6px; }
+  .folder-header .brain-tag { font-size: 10px; padding: 2px 6px; }
 
-  pre { padding: 14px 12px; font-size: 12px; line-height: 1.6; }
+  /* Code blocks — word wrap on mobile to avoid horizontal scroll */
+  pre {
+    padding: 14px 12px;
+    font-size: 11.5px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
 
-  thead th { padding: 8px 10px; font-size: 11px; }
-  tbody td { padding: 8px 10px; font-size: 13px; }
+  /* Tables — tighter padding, smaller text */
+  .table-wrap {
+    margin: 12px -14px 20px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  table { font-size: 13px; }
+  thead th {
+    padding: 8px 10px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+  tbody td {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  td code, th code { font-size: 11.5px; padding: 1px 4px; }
 
+  /* Callouts */
   .callout { padding: 12px 14px; font-size: 13px; }
 
+  /* Lists */
   ul, ol { margin-left: 16px; }
+  li { font-size: 14px; margin-bottom: 4px; }
 
-  .footer { padding: 24px 14px; margin-top: 48px; }
+  /* Paragraphs */
+  p { font-size: 14.5px; margin-bottom: 12px; }
+
+  /* Badges */
+  .badge { font-size: 11px; padding: 1px 6px; }
+
+  /* Nav pills — smaller for phone */
+  .sidebar nav { gap: 3px 6px; }
+  .sidebar a { font-size: 12px; padding: 5px 10px; }
+
+  /* Footer */
+  .footer { padding: 24px 14px; margin-top: 48px; font-size: 12px; }
+
+  /* Content area bottom padding */
+  .content { padding-bottom: 60px; }
+}
+
+/* ---- Small phone (≤ 400px) ---- */
+@media (max-width: 400px) {
+  .page { padding: 0 10px; }
+
+  .hero { padding: 32px 10px 24px; margin-bottom: 24px; }
+  .hero-emoji { font-size: 32px; }
+  .hero h1 { font-size: 26px; letter-spacing: -0.3px; }
+  .hero-domain { font-size: 11px; }
+  .hero-subtitle { font-size: 13px; margin-bottom: 12px; }
+  .hero-version { font-size: 10px; }
+
+  h2 { font-size: 22px; margin: 28px 0 12px; padding-top: 14px; }
+  h3 { font-size: 15px; margin: 20px 0 6px; }
+
+  pre { font-size: 11px; padding: 12px 10px; }
+
+  table { font-size: 12px; }
+  thead th { padding: 6px 8px; font-size: 9px; }
+  tbody td { padding: 6px 8px; font-size: 12px; }
+  td code, th code { font-size: 11px; }
+
+  .table-wrap { margin: 10px -10px 16px; }
+
+  .callout { padding: 10px 12px; font-size: 12px; }
+
+  .folder-header .brain-tag { font-size: 9px; }
+
+  .sidebar a { font-size: 11px; padding: 4px 8px; }
+
+  .footer { padding: 20px 10px; margin-top: 36px; }
+}
+
+/* ---- Ensure nothing overflows the viewport ---- */
+@media (max-width: 600px) {
+  * { max-width: 100%; }
+  img { height: auto; }
+  .diagram-wrap img { border-radius: 4px; }
+
+  /* Phase bar emojis — prevent line-height issues */
+  .phase-bar { font-size: 16px; letter-spacing: 1px; }
 }
