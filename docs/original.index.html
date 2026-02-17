@@ -76,6 +76,70 @@
     color: #1B3A5C;
     margin: 0;
   }
+  .header-directory-wrap {
+    display: flex;
+    align-items: center;
+  }
+  .header-directory {
+    position: relative;
+  }
+  .directory-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 118px;
+    height: 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    list-style: none;
+  }
+  .directory-toggle::-webkit-details-marker { display: none; }
+  .directory-toggle::after {
+    content: '▾';
+    font-size: 10px;
+    margin-left: 8px;
+    color: var(--text-secondary);
+    transition: transform 0.18s ease;
+  }
+  .header-directory[open] .directory-toggle::after { transform: rotate(180deg); }
+  .directory-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: min(300px, calc(100vw - 44px));
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 8px 0;
+  }
+  .directory-menu nav { display: flex; flex-direction: column; gap: 2px; max-height: 62vh; overflow: auto; }
+  .directory-menu a {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 4px 12px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .directory-menu a:hover { color: var(--text); border-left-color: var(--border); }
+  .directory-menu .nav-section {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    padding: 16px 12px 4px;
+    font-weight: 600;
+  }
 
   /* --- HERO --- */
   .hero {
@@ -120,6 +184,7 @@
     .header-inner { padding: 8px 16px; gap: 10px; }
     .header-title { font-size: 20px; line-height: 34px; }
     .header-brain { font-size: 20px; line-height: 34px; }
+    .directory-menu { width: min(315px, calc(100vw - 32px)); }
   }
 
   /* --- HEADINGS --- */
@@ -375,61 +440,6 @@
     color: var(--text-muted);
   }
   .footer a { color: var(--accent); text-decoration: none; }
-
-  .page-shell {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 22px 110px;
-  }
-  .content-page { display: none; }
-  .content-page.is-active { display: block; }
-
-  .bottom-nav {
-    position: fixed;
-    left: 50%;
-    bottom: 18px;
-    transform: translateX(-50%);
-    background: rgba(255,255,255,0.95);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    box-shadow: var(--shadow-md);
-    padding: 6px;
-    display: flex;
-    gap: 6px;
-    z-index: 60;
-  }
-  .bottom-nav-btn {
-    border: none;
-    border-radius: 999px;
-    padding: 8px 14px;
-    background: transparent;
-    color: var(--text-secondary);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .bottom-nav-btn.is-active {
-    background: var(--accent-light);
-    color: var(--accent);
-  }
-  .page-intro {
-    margin-bottom: 22px;
-    color: var(--text-secondary);
-  }
-  @media (max-width: 760px) {
-    .bottom-nav {
-      width: calc(100% - 26px);
-      border-radius: 14px;
-    }
-    .bottom-nav-btn {
-      flex: 1;
-      text-align: center;
-      padding: 9px 10px;
-      font-size: 12px;
-    }
-  }
-
 </style>
 <link rel="stylesheet" href="responsive.css">
 </head>
@@ -440,6 +450,29 @@
     <div class="header-brand">
       <span class="header-brain">🧠</span><span class="header-title">OpenVault</span>
     </div>
+    <div class="header-directory-wrap">
+      <details class="header-directory">
+        <summary class="directory-toggle" aria-label="Toggle section directory">Directory</summary>
+        <div class="directory-menu" aria-label="Section directory">
+          <nav>
+            <span class="nav-section">Foundation</span>
+            <a href="#overview">Brain-Vault Analogy</a>
+            <span class="nav-section">Architecture</span>
+            <a href="#brain-body">Brain vs Body</a>
+            <a href="#workflow">5-Step Workflow</a>
+            <span class="nav-section">Vault Structure</span>
+            <a href="#folders">Folder Reference</a>
+            <a href="#flow">Information Flow</a>
+            <span class="nav-section">Management</span>
+            <a href="#phases">Six Phases</a>
+            <a href="#tasks-spec">tasks.md Spec</a>
+            <a href="#build-ops">Build vs Ops</a>
+            <span class="nav-section">Reference</span>
+            <a href="#revision-log">Revision Log</a>
+          </nav>
+        </div>
+      </details>
+    </div>
   </div>
 </header>
 
@@ -449,9 +482,10 @@
   <span class="hero-domain"><a href="https://open-vault.dev">open-vault.dev</a> · <a href="https://github.com/metz2165/OpenVault">GitHub Repo</a></span>
 </div>
 
-<div class="page-shell">
-  <section class="content-page is-active" data-page="overview">
-    <main class="content">
+<div class="page">
+<!-- CONTENT -->
+<main class="content">
+
 <!-- ======== OVERVIEW ======== -->
 <h2 id="overview">Overview: The Brain-Vault Analogy</h2>
 
@@ -526,13 +560,9 @@
 <li><strong>Update the brain</strong> — Update <code>tasks.md</code> with status changes, log in <code>110-Logs/Agent-Runs/</code>, Dashboard auto-aggregates</li>
 <li><strong>Push to GitHub</strong> — Commit and push code changes. <code>tasks.md</code> links to relevant issues and PRs.</li>
 </ol>
-    </main>
-  </section>
 
-  <section class="content-page" data-page="vault">
-    <main class="content">
-      <p class="page-intro">This page documents the Obsidian Vault itself: the folder map, each brain-inspired section, and how information moves through the vault from capture to long-term knowledge.</p>
-<h2 id="folders">Obsidian Vault</h2>
+
+<h3 id="folders">Master Folder Map</h3>
 
 <div class="table-wrap">
 <table>
@@ -802,13 +832,7 @@
 <tr><td><code>docs/secrets.md</code></td><td>Environment variable names and vault paths — never credentials</td></tr>
 <tr><td><code>docs/phases/</code></td><td>Phase breakdowns: phase-1-design.md, phase-2-build.md, etc.</td></tr>
 </tbody></table></div>
-    </main>
-  </section>
 
-  <section class="content-page" data-page="project">
-    <main class="content">
-      <h2>Project Folder</h2>
-      <p class="page-intro">This page focuses on project execution standards after folder setup, including phase management, <code>tasks.md</code> structure, and build-vs-ops task handling.</p>
 <!-- ======== PHASES ======== -->
 <h2 id="phases">Phases & Task Management</h2>
 
@@ -965,15 +989,9 @@ Phase: 🔵 3-Dev | ✅✅🔵⬜⬜⬜
 <thead><tr><th>Rev</th><th>Date</th><th>Changes</th></tr></thead>
 <tbody>
 </tbody></table></div>
-    </main>
-  </section>
-</div>
 
-<nav class="bottom-nav" aria-label="Page navigation">
-  <button class="bottom-nav-btn is-active" data-page="overview">Overview</button>
-  <button class="bottom-nav-btn" data-page="vault">Obsidian Vault</button>
-  <button class="bottom-nav-btn" data-page="project">Project Folder</button>
-</nav>
+</main>
+</div><!-- page -->
 
 <div class="footer">
   <p>🧠 <strong>OpenVault Guide</strong> · <a href="https://open-vault.dev">open-vault.dev</a> · Version 5.0</p>
@@ -981,17 +999,13 @@ Phase: 🔵 3-Dev | ✅✅🔵⬜⬜⬜
 
 <script>
   (() => {
-    const buttons = Array.from(document.querySelectorAll('.bottom-nav-btn'));
-    const pages = Array.from(document.querySelectorAll('.content-page'));
+    const directory = document.querySelector('.header-directory');
+    if (!directory) return;
 
-    const setPage = (pageKey) => {
-      pages.forEach((page) => page.classList.toggle('is-active', page.dataset.page === pageKey));
-      buttons.forEach((button) => button.classList.toggle('is-active', button.dataset.page === pageKey));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => setPage(button.dataset.page));
+    directory.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', () => {
+        directory.removeAttribute('open');
+      });
     });
   })();
 </script>
