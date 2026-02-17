@@ -65,24 +65,26 @@
     justify-content: flex-start;
   }
   .header-brain {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1;
   }
   .header-title-group {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-width: 0;
   }
   .header-title-line {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
   }
   .header-title {
     font-family: 'Instrument Serif', serif;
-    font-size: 30px;
-    letter-spacing: -0.6px;
-    line-height: 1.1;
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    line-height: 1;
     color: #1B3A5C;
     margin: 0;
   }
@@ -193,7 +195,7 @@
 
   @media (max-width: 900px) {
     .header-inner { padding: 8px 16px; gap: 10px; }
-    .header-title { font-size: 24px; }
+    .header-title { font-size: 21px; }
     .directory-menu { width: min(315px, calc(100vw - 32px)); }
   }
 
@@ -459,7 +461,7 @@
   <div class="header-inner">
     <div class="header-brand" aria-hidden="true"></div>
     <div class="header-title-group">
-      <div class="header-title-line"><span class="header-brain">🧠</span><p class="header-title">OpenVault</p></div>
+      <div class="header-title-line"><span class="header-brain">🧠</span><span class="header-title">OpenVault</span></div>
     </div>
     <div class="header-directory-wrap">
       <details class="header-directory">
