@@ -87,12 +87,49 @@
   .sidebar {
     position: sticky;
     top: 24px;
-    width: 220px;
+    width: 92px;
     flex-shrink: 0;
     padding-top: 8px;
   }
+  .directory-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    height: 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    cursor: default;
+  }
+  .directory-menu {
+    margin-top: 10px;
+    width: 220px;
+    opacity: 0;
+    transform: translateX(-8px);
+    pointer-events: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 8px 0;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .sidebar:hover .directory-menu,
+  .sidebar:focus-within .directory-menu {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
   .sidebar nav { display: flex; flex-direction: column; gap: 2px; }
   .sidebar a {
+    display: block;
     font-size: 13px;
     color: var(--text-muted);
     text-decoration: none;
@@ -115,6 +152,14 @@
   @media (max-width: 900px) {
     .layout { flex-direction: column; }
     .sidebar { position: static; width: 100%; }
+    .directory-toggle { display: none; }
+    .directory-menu {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      width: 100%;
+      margin-top: 0;
+    }
   }
 
   /* --- HEADINGS --- */
@@ -309,7 +354,8 @@
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
-  <nav>
+  <button type="button" class="directory-toggle" aria-label="Open section directory">Directory</button>
+  <nav class="directory-menu" aria-label="Section directory">
     <span class="nav-section">Foundation</span>
     <a href="#overview">Brain-Vault Analogy</a>
     <a href="#folders">Folder Reference</a>
