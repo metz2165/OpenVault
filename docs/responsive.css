@@ -5,6 +5,24 @@
    rendering is completely unaffected.
    ============================================= */
 
+/* ---- Stacked layout fixes (≤ 900px) ---- */
+@media (max-width: 900px) {
+  .layout {
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .sidebar,
+  .content {
+    width: 100%;
+  }
+
+  .directory-menu {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 /* ---- Tablet / small laptop (≤ 768px) ---- */
 @media (max-width: 768px) {
   .hero { padding: 56px 20px 44px; margin-bottom: 36px; }
