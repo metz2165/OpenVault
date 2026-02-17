@@ -736,6 +736,7 @@
 <tbody>
 <tr><td><code>ID</code></td><td>Globally unique: project prefix + sequential number (e.g., ST-001)</td></tr>
 <tr><td><code>Task</code></td><td>Short, actionable description</td></tr>
+<tr><td><code>Task Type</code></td><td>Workstream classification: <code>Build</code> or <code>Ops</code></td></tr>
 <tr><td><code>Phase</code></td><td>Phase code: <code>1-Plan</code>, <code>2-Design</code>, <code>3-Dev</code>, <code>4-QA</code>, <code>5-Deploy</code>, <code>6-Maint</code></td></tr>
 <tr><td><code>Status</code></td><td>🟡 Queued · 🔵 In Progress · ✅ Completed · ❌ Failed · ⏸️ Paused · 🚫 Blocked</td></tr>
 <tr><td><code>Priority</code></td><td>🔴 Critical · 🟠 High · 🟡 Normal · 🟢 Low</td></tr>
@@ -756,17 +757,17 @@ Phase Progress: ✅✅🔵⬜⬜⬜
 Last Synced: 2026-02-16 09:00
 ───
 ## Active — Build
-| ID       | Task                    | Phase   | Status         | Priority  | Assignee    | Due  | GitHub |
-| {{PX}}-001 | Build alert API         | 3-Dev   | 🔵 In Progress | 🟠 High   | claude-code | 2/18 | #12    |
-| {{PX}}-002 | Rebalance logic         | 3-Dev   | 🟡 Queued      | 🟡 Normal | openclaw    | 2/20 | #14    |
-| {{PX}}-003 | Write integration tests | 4-QA    | 🟡 Queued      | 🟢 Low    | —           | —    | —      |
-| {{PX}}-004 | Deploy to staging       | 5-Deploy| 🟡 Queued      | 🟡 Normal | —           | —    | —      |
+| ID       | Task                    | Task Type | Phase   | Status         | Priority  | Assignee    | Due  | GitHub |
+| {{PX}}-001 | Build alert API         | Build     | 3-Dev   | 🔵 In Progress | 🟠 High   | claude-code | 2/18 | #12    |
+| {{PX}}-002 | Rebalance logic         | Build     | 3-Dev   | 🟡 Queued      | 🟡 Normal | openclaw    | 2/20 | #14    |
+| {{PX}}-003 | Write integration tests | Build     | 4-QA    | 🟡 Queued      | 🟢 Low    | —           | —    | —      |
+| {{PX}}-004 | Deploy to staging       | Build     | 5-Deploy| 🟡 Queued      | 🟡 Normal | —           | —    | —      |
 
 ## Active — Ops
-| ID       | Task                        | Category    | Status         | Priority  | Assignee    | Due  | GitHub |
-| {{PX}}-050 | Fix null pointer in parser  | 🐛 Bug      | 🔵 In Progress | 🟠 High   | claude-code | 2/16 | #15    |
-| {{PX}}-051 | Update axios to v1.7        | 📦 Dep      | 🟡 Queued      | 🟢 Low    | —           | —    | —      |
-| {{PX}}-052 | Add rate limiting           | 🔒 Security | 🟡 Queued      | 🟠 High   | —           | 2/19 | #16    |
+| ID       | Task                        | Task Type | Category    | Status         | Priority  | Assignee    | Due  | GitHub |
+| {{PX}}-050 | Fix null pointer in parser  | Ops       | 🐛 Bug      | 🔵 In Progress | 🟠 High   | claude-code | 2/16 | #15    |
+| {{PX}}-051 | Update axios to v1.7        | Ops       | 📦 Dep      | 🟡 Queued      | 🟢 Low    | —           | —    | —      |
+| {{PX}}-052 | Add rate limiting           | Ops       | 🔒 Security | 🟡 Queued      | 🟠 High   | —           | 2/19 | #16    |
 ───
 ## Completed
 | ID       | Task                  | Type  | Completed  | Duration | GitHub | Notes         |
