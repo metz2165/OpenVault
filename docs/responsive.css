@@ -14,6 +14,12 @@
 
   /* Tables: ensure horizontal scroll works smoothly */
   .table-wrap { -webkit-overflow-scrolling: touch; }
+
+  /* Architecture diagram — tighter on tablet */
+  .arch-diagram { padding: 24px 20px; }
+  .arch-bridge { padding: 0 12px; }
+  .arch-item-code { min-width: 80px; font-size: 10px; }
+  .arch-item-desc { font-size: 11.5px; }
 }
 
 /* ---- Large phone / small tablet (≤ 768px) ---- */
@@ -35,12 +41,62 @@
   .header-inner { padding: 8px 16px; }
   .directory-toggle { min-width: 108px; height: 34px; }
   .directory-menu { width: min(280px, calc(100vw - 32px)); }
+
+  /* Architecture diagram — stack vertically on smaller tablets */
+  .arch-columns {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .arch-bridge {
+    flex-direction: row;
+    padding: 0;
+    justify-content: center;
+  }
+  .arch-bridge-line {
+    width: auto;
+    height: 2px;
+    min-height: unset;
+    min-width: 24px;
+    flex: 0;
+    background: repeating-linear-gradient(
+      to right,
+      var(--border) 0px,
+      var(--border) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+  }
+  .arch-diagram { padding: 20px 16px; }
+  .arch-diagram-title { font-size: 20px; }
+  .arch-item-code { min-width: 90px; }
 }
 
 /* ---- Phone (≤ 600px) ---- */
 @media (max-width: 600px) {
   body { font-size: 15px; }
   .page { padding: 0 14px; }
+
+  /* Architecture diagram — compact for phone */
+  .arch-diagram {
+    padding: 16px 12px;
+    margin: 20px -14px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .arch-diagram-title { font-size: 18px; }
+  .arch-diagram-subtitle { font-size: 12px; margin-bottom: 20px; }
+  .arch-side-header h4 { font-size: 17px; }
+  .arch-side-header .arch-path { font-size: 11px; }
+  .arch-side-header .arch-label { font-size: 11px; }
+  .arch-items { padding: 10px 10px; gap: 4px; }
+  .arch-item { padding: 5px 8px; font-size: 12px; }
+  .arch-item-code { font-size: 10px; min-width: 82px; }
+  .arch-item-desc { font-size: 11px; }
+  .arch-bridge-box { padding: 8px 12px; }
+  .arch-bridge-box code { font-size: 12px; }
+  .arch-reads-row { gap: 10px; margin-top: 16px; padding-top: 14px; }
+  .arch-reads-box { padding: 8px 10px; font-size: 11px; }
 
   /* Hero */
   .hero { padding: 34px 14px 26px; margin-bottom: 22px; }
@@ -142,6 +198,17 @@
   .directory-toggle { min-width: 96px; height: 30px; }
 
   .footer { padding: 20px 10px; margin-top: 36px; }
+
+  /* Architecture diagram — smallest screens */
+  .arch-diagram { padding: 14px 10px; margin: 16px -10px; }
+  .arch-diagram-title { font-size: 16px; }
+  .arch-diagram-subtitle { font-size: 11px; margin-bottom: 16px; }
+  .arch-side-header h4 { font-size: 15px; }
+  .arch-items { padding: 8px 8px; gap: 3px; }
+  .arch-item { padding: 4px 6px; }
+  .arch-item-code { font-size: 9.5px; min-width: 74px; }
+  .arch-item-desc { font-size: 10px; }
+  .arch-reads-row { grid-template-columns: 1fr; gap: 8px; }
 }
 
 /* ---- Ensure nothing overflows the viewport ---- */
