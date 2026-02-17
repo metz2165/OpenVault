@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenVault — Architecture & Reference Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --surface-dim: #F3F2EF;
+    --text: #1A1A18;
+    --text-secondary: #6B6B66;
+    --text-muted: #9C9C96;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EB;
+    --accent-warm: #8B6914;
+    --border: #E5E4E0;
+    --border-light: #EEEDE9;
+    --code-bg: #F7F6F3;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --radius: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15.5px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- LAYOUT --- */
+  .page { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+  /* --- HERO --- */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .hero-emoji { font-size: 56px; margin-bottom: 16px; display: block; }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 52px;
+    font-weight: 400;
+    letter-spacing: -1.5px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .hero-domain {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .hero-domain a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-light); }
+  .hero-domain a:hover { border-color: var(--accent); }
+  .hero-subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 520px;
+    margin: 0 auto 24px;
+  }
+  .hero-version {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* --- SIDEBAR NAV --- */
+  .layout { display: flex; gap: 48px; align-items: flex-start; }
+  .sidebar {
+    position: sticky;
+    top: 24px;
+    width: 220px;
+    flex-shrink: 0;
+    padding-top: 8px;
+  }
+  .sidebar nav { display: flex; flex-direction: column; gap: 2px; }
+  .sidebar a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 4px 12px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .sidebar a:hover { color: var(--text); border-left-color: var(--border); }
+  .sidebar a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+  .sidebar .nav-section {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    padding: 16px 12px 4px;
+    font-weight: 600;
+  }
+  .directory-menu {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .directory-trigger {
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    padding: 10px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .directory-dropdown {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.22s ease, opacity 0.2s ease;
+    background: var(--surface);
+  }
+  .directory-menu:hover .directory-dropdown,
+  .directory-menu:focus-within .directory-dropdown {
+    max-height: 460px;
+    opacity: 1;
+  }
+  .directory-dropdown .nav-section:first-child { padding-top: 8px; }
+  .directory-dropdown a:last-child { margin-bottom: 8px; }
+  .content { flex: 1; min-width: 0; padding-bottom: 120px; }
+
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; }
+    .sidebar { position: static; width: 100%; }
+    .directory-dropdown {
+      max-height: 460px;
+      opacity: 1;
+    }
+  }
+
+  /* --- HEADINGS --- */
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    margin: 64px 0 20px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+  }
+  h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 36px 0 12px;
+    color: var(--text);
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin: 28px 0 10px;
+  }
+
+  /* --- PARAGRAPHS --- */
+  p { margin-bottom: 16px; color: var(--text); }
+  p + p { margin-top: 0; }
+
+  /* --- TABLES --- */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  thead th {
+    background: var(--surface-dim);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-secondary);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--surface-dim); }
+  td code, th code {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+
+  /* --- CODE BLOCKS --- */
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin: 16px 0 24px;
+    overflow-x: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* --- LISTS --- */
+  ul, ol { margin: 8px 0 20px 20px; }
+  li { margin-bottom: 6px; color: var(--text); }
+  li::marker { color: var(--text-muted); }
+
+  /* --- CALLOUT BOXES --- */
+  .callout {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .callout strong { color: var(--accent); }
+
+  .callout-warm {
+    background: #FEF9EF;
+    border-left-color: var(--accent-warm);
+  }
+  .callout-warm strong { color: var(--accent-warm); }
+
+  /* --- FOLDER SECTION HEADERS --- */
+  .folder-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 36px 0 8px;
+  }
+  .folder-header h3 { margin: 0; }
+  .folder-header .brain-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  /* --- IMAGE --- */
+  .diagram-wrap {
+    margin: 24px 0;
+    text-align: center;
+  }
+  .diagram-wrap img {
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* --- REVISION LOG --- */
+  .revision-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .revision-table td:nth-child(2) {
+    font-family: 'DM Mono', monospace;
+    white-space: nowrap;
+    color: var(--text-muted);
+  }
+
+  /* --- EMOJI BADGES --- */
+  .phase-bar { font-size: 18px; letter-spacing: 2px; }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+  .badge-build { background: #E3EDFA; color: #2A5DB0; }
+  .badge-ops { background: #FFF3E0; color: #B06B1A; }
+
+  /* --- FOOTER --- */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-emoji">🧠</span>
+  <h1>OpenVault</h1>
+  <span class="hero-domain"><a href="https://open-vault.dev">open-vault.dev</a></span>
+  <p class="hero-subtitle">A brain-inspired knowledge management system for AI agent orchestration, task execution & memory</p>
+  <span class="hero-version">Version 5.0 · February 2026</span>
+</div>
+
+<div class="page">
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <nav>
+    <div class="directory-menu">
+      <button class="directory-trigger" type="button" aria-haspopup="true">Directory</button>
+      <div class="directory-dropdown">
+        <span class="nav-section">Foundation</span>
+        <a href="#overview">Brain-Vault Analogy</a>
+        <a href="#folders">Folder Reference</a>
+        <a href="#flow">Information Flow</a>
+        <span class="nav-section">Architecture</span>
+        <a href="#brain-body">Brain vs Body</a>
+        <a href="#workflow">5-Step Workflow</a>
+        <span class="nav-section">Management</span>
+        <a href="#phases">Six Phases</a>
+        <a href="#tasks-spec">tasks.md Spec</a>
+        <a href="#build-ops">Build vs Ops</a>
+        <span class="nav-section">Reference</span>
+        <a href="#revision-log">Revision Log</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<!-- CONTENT -->
+<main class="content">
+
+<!-- ======== OVERVIEW ======== -->
+<h2 id="overview">Overview: The Brain-Vault Analogy</h2>
+
+<p>This Obsidian vault serves as the central nervous system for OpenClaw — an AI orchestration platform that manages tasks, automations, and knowledge. Each folder in the vault maps to a functional region of the human brain, creating an intuitive architecture for how information flows, gets processed, stored, and acted upon.</p>
+
+<p>The vault is designed so that both humans and AI agents can navigate it naturally. Folders are numbered (000–130) to maintain consistent sort order across file browsers, CLI tools, and agent file access.</p>
+
+<h3 id="folders">Master Folder Map</h3>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Folder</th><th>Brain Region</th><th>Core Function</th></tr></thead>
+<tbody>
+<tr><td><code>000-Inbox</code></td><td>Sensory Input</td><td>Raw captures, unsorted notes, clippings before processing</td></tr>
+<tr><td><code>010-Projects</code></td><td>Prefrontal Cortex</td><td>Executive planning, active project management</td></tr>
+<tr><td><code>015-Dashboard</code></td><td>Thalamus</td><td>Central routing, system status, daily briefing</td></tr>
+<tr><td><code>020-Tasks</code></td><td>Working Memory</td><td>Immediate task tracking: today, upcoming, someday</td></tr>
+<tr><td><code>025-Watchlist</code></td><td>Reticular Activating System</td><td>Attention filtering, alerts, monitors, feeds</td></tr>
+<tr><td><code>030-Agents</code></td><td>Neural Pathways</td><td>Agent configs, logs, templates, and memory</td></tr>
+<tr><td><code>035-Priorities</code></td><td>Amygdala</td><td>Urgency tagging and priority classification</td></tr>
+<tr><td><code>040-Skills</code></td><td>Cerebellum</td><td>Procedural memory: reusable skills and commands</td></tr>
+<tr><td><code>050-MCP</code></td><td>Synapses</td><td>MCP server connections, tools, resources</td></tr>
+<tr><td><code>060-Prompts</code></td><td>Neocortex</td><td>Higher reasoning: system prompts, chains, fragments</td></tr>
+<tr><td><code>070-Routines</code></td><td>Autonomic NS</td><td>Automatic + scheduled + triggered workflows</td></tr>
+<tr><td><code>080-Bookmarks</code></td><td>Temporal Lobe</td><td>Reference storage: links, articles, tools</td></tr>
+<tr><td><code>090-Knowledge</code></td><td>Long-term Memory</td><td>Domain knowledge: engineering, trading, devops, health</td></tr>
+<tr><td><code>095-Connections</code></td><td>Corpus Callosum</td><td>Cross-linking, maps of content, tag indexes</td></tr>
+<tr><td><code>100-Context</code></td><td>Prefrontal Context</td><td>CLAUDE.md files, rules, personas, scratchpads</td></tr>
+<tr><td><code>110-Logs</code></td><td>Hippocampus</td><td>Episodic recording: daily, weekly, decisions, agent runs</td></tr>
+<tr><td><code>120-Templates</code></td><td>DNA / Blueprints</td><td>Replicable patterns for all vault content types</td></tr>
+<tr><td><code>130-Archive</code></td><td>Deep Storage</td><td>Retired content preserved for reference</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- FOLDER DETAILS -->
+<div class="folder-header"><h3>000-Inbox</h3><span class="brain-tag">Sensory Input</span></div>
+<p>The default landing zone for anything captured quickly — ideas, links, screenshots, voice memos, clippings from the web, or quick notes. Nothing lives here permanently; it gets triaged into the appropriate folder during regular processing.</p>
+<ul>
+<li>Process the Inbox at least once daily (or set up an agent to auto-triage)</li>
+<li>Keep items here less than 48 hours</li>
+<li>Use <code>routing-rules.md</code> in 015-Dashboard to define where items go</li>
+</ul>
+
+<div class="folder-header"><h3>010-Projects</h3><span class="brain-tag">Prefrontal Cortex</span></div>
+<p>Each project gets its own subfolder under Active, On-Hold, or Completed. Projects contain everything needed to execute: an overview, task lists, phase breakdowns, logs, and reference materials.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>File / Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Active/</code></td><td>Projects currently being worked on</td></tr>
+<tr><td><code>ProjectName/overview.md</code></td><td>Project summary: goals, scope, stakeholders, timeline</td></tr>
+<tr><td><code>ProjectName/tasks.md</code></td><td>Project-specific task list with status tracking</td></tr>
+<tr><td><code>ProjectName/phases/</code></td><td>Phase breakdowns (e.g., phase-1-design.md, phase-2-build.md)</td></tr>
+<tr><td><code>ProjectName/logs/</code></td><td>Project-specific activity logs and meeting notes</td></tr>
+<tr><td><code>ProjectName/references/</code></td><td>Supporting docs, links, specs relevant to this project</td></tr>
+<tr><td><code>On-Hold/</code></td><td>Projects paused but not abandoned</td></tr>
+<tr><td><code>Completed/</code></td><td>Finished projects preserved for reference</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>015-Dashboard</h3><span class="brain-tag">Thalamus</span></div>
+<p>The nerve center of the vault. Provides at-a-glance system status, tells OpenClaw what to focus on, generates daily briefings, and defines routing rules for Inbox items.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>system-status.md</code></td><td>Health status of all automations, agents, backups, and cron jobs</td></tr>
+<tr><td><code>active-focus.md</code></td><td>What OpenClaw should prioritize RIGHT NOW — the current directive</td></tr>
+<tr><td><code>daily-brief.md</code></td><td>Auto-generated morning summary: tasks due, alerts, calendar, priorities</td></tr>
+<tr><td><code>routing-rules.md</code></td><td>Rules defining how Inbox items get auto-sorted into folders</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>020-Tasks</h3><span class="brain-tag">Working Memory</span></div>
+<p>Individual action items that need to be done. The tasks.md file uses the OpenClaw task tracker format with status emojis, timestamps, and agent attribution.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>today.md</code></td><td>Tasks that must be completed today</td></tr>
+<tr><td><code>upcoming.md</code></td><td>Tasks scheduled for the near future (this week / next week)</td></tr>
+<tr><td><code>someday.md</code></td><td>Ideas and tasks with no firm deadline — the backlog</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>025-Watchlist</h3><span class="brain-tag">Reticular Activating System</span></div>
+<p>Items that need passive monitoring. Rather than requiring active work, these trigger attention only when specific conditions are met.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Alerts/</code></td><td>Active alert conditions and thresholds (e.g., price drops, HRV below Y)</td></tr>
+<tr><td><code>Monitors/</code></td><td>Things being tracked: stock prices, health metrics, project deadlines</td></tr>
+<tr><td><code>Feeds/</code></td><td>RSS feeds, API endpoints, data streams, and webhooks to watch</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>030-Agents</h3><span class="brain-tag">Neural Pathways</span></div>
+<p>Defines WHO does the work. Each agent has a configuration, produces logs, and can draw on persistent memory split between working, episodic, and semantic memory.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Configs/</code></td><td>Agent definitions: system prompts, personas, tool access, capabilities</td></tr>
+<tr><td><code>Logs/</code></td><td>Agent run history: what they did, when, and results</td></tr>
+<tr><td><code>Templates/</code></td><td>Reusable agent templates for spinning up new agents quickly</td></tr>
+<tr><td><code>Memory/Working/</code></td><td>Current session context and scratchpads — clears regularly</td></tr>
+<tr><td><code>Memory/Episodic/</code></td><td>Records of specific events and interactions over time</td></tr>
+<tr><td><code>Memory/Semantic/</code></td><td>Consolidated facts, learned patterns, permanent knowledge</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>035-Priorities</h3><span class="brain-tag">Amygdala</span></div>
+<p>The vault's triage system. Agents auto-classify items using priority-rules.md; humans can override at any time.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>critical.md</code></td><td>🔴 Must act immediately — blockers, failures, urgent deadlines</td></tr>
+<tr><td><code>high.md</code></td><td>🟠 This week — important but not emergency</td></tr>
+<tr><td><code>normal.md</code></td><td>🟡 Scheduled and on track — proceeding as planned</td></tr>
+<tr><td><code>low.md</code></td><td>🟢 Backlog — nice to have, no deadline pressure</td></tr>
+<tr><td><code>priority-rules.md</code></td><td>Rules for how agents should auto-classify urgency levels</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>040-Skills</h3><span class="brain-tag">Cerebellum</span></div>
+<p>Defines WHAT agents can do. Skills are reusable, composable, and can be shared across agents and tools.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Claude-Code/Commands/</code></td><td>Reusable slash commands and code snippets for Claude Code</td></tr>
+<tr><td><code>Claude-Code/Hooks/</code></td><td>Pre/post hooks and event handlers for Claude Code workflows</td></tr>
+<tr><td><code>OpenClaw/</code></td><td>OpenClaw-specific skill definitions and capability files</td></tr>
+<tr><td><code>Shared/</code></td><td>Skills usable across any agent or tool — platform-agnostic</td></tr>
+<tr><td><code>skill-index.md</code></td><td>Registry of all available skills with descriptions and status</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>050-MCP</h3><span class="brain-tag">Synapses</span></div>
+<p>The communication layer connecting agents to external tools and data sources via Model Context Protocol.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Servers/</code></td><td>MCP server configs and connection details (filesystem, GitHub, Obsidian, etc.)</td></tr>
+<tr><td><code>Tools/</code></td><td>Custom tool definitions exposed via MCP to agents</td></tr>
+<tr><td><code>Resources/</code></td><td>MCP resource definitions — data sources agents can read</td></tr>
+<tr><td><code>Prompts/</code></td><td>MCP prompt templates served to connected clients</td></tr>
+<tr><td><code>mcp-registry.md</code></td><td>Master index of all MCP servers, their tools, and capabilities</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>060-Prompts</h3><span class="brain-tag">Neocortex</span></div>
+<p>Instructions that direct higher-order processing. Separated from agent configs because prompts are composable and reusable across agents.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>System/</code></td><td>System prompts and CLAUDE.md files that define agent behavior</td></tr>
+<tr><td><code>Task/</code></td><td>Reusable task-specific prompts (e.g., summarize, analyze, generate)</td></tr>
+<tr><td><code>Chains/</code></td><td>Multi-step prompt chains and workflows (research → summarize → file)</td></tr>
+<tr><td><code>Fragments/</code></td><td>Composable prompt snippets and partials for assembly</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>070-Routines</h3><span class="brain-tag">Autonomic NS</span></div>
+<p>Background processes split into conscious (scheduled, triggered) and unconscious (autonomic), mirroring the brain's voluntary and involuntary actions.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Autonomic/</code></td><td>Always-on processes: backups, syncs, heartbeats, health checks</td></tr>
+<tr><td><code>Scheduled/</code></td><td>Cron jobs and weekly tasks — set and forget</td></tr>
+<tr><td><code>Triggered/</code></td><td>Event-driven rules: when X happens, do Y</td></tr>
+<tr><td><code>Pipelines/</code></td><td>Multi-step orchestrated workflows chaining multiple actions</td></tr>
+<tr><td><code>Checklists/</code></td><td>Manual routines and SOPs: daily standup, weekly review, monthly audit</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>080-Bookmarks</h3><span class="brain-tag">Temporal Lobe</span></div>
+<p>Curated external references organized by type.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>tools.md</code></td><td>Software, SaaS products, CLIs, and utilities</td></tr>
+<tr><td><code>articles.md</code></td><td>Saved articles, blog posts, and long-form reads</td></tr>
+<tr><td><code>repos.md</code></td><td>GitHub repositories and open-source projects</td></tr>
+<tr><td><code>tutorials.md</code></td><td>How-to guides, courses, and learning resources</td></tr>
+<tr><td><code>reference-sites.md</code></td><td>Frequently visited documentation sites and reference portals</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>090-Knowledge</h3><span class="brain-tag">Long-term Memory</span></div>
+<p>Your own notes, calculations, strategies, and accumulated expertise organized by domain. What agents reference for domain-specific context.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Engineering/</code></td><td>Natural gas calcs, odorizer specs, pipeline notes, station data</td></tr>
+<tr><td><code>Trading/</code></td><td>Strategies, setups, portfolio notes, market analysis</td></tr>
+<tr><td><code>DevOps/</code></td><td>Server configs, Coolify notes, Tailscale setup, hosting docs</td></tr>
+<tr><td><code>Health/</code></td><td>HRV insights, sleep data analysis, fitness protocols, wellness tracking</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>095-Connections</h3><span class="brain-tag">Corpus Callosum</span></div>
+<p>The meta-layer that links knowledge across domains. Prevents folders from becoming isolated islands.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>map-of-content.md</code></td><td>Master index (MOC) linking related notes across the entire vault</td></tr>
+<tr><td><code>tag-index.md</code></td><td>Canonical tags used across the vault with definitions</td></tr>
+<tr><td><code>dependency-graph.md</code></td><td>What depends on what: projects ↔ skills ↔ agents ↔ MCP servers</td></tr>
+<tr><td><code>Relations/</code></td><td>Explicit link files connecting items across domains</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>100-Context</h3><span class="brain-tag">Prefrontal Context</span></div>
+<p>Shapes HOW agents behave in different situations through identity, rules, and contextual awareness.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>CLAUDE-files/</code></td><td>CLAUDE.md files for different projects and repos</td></tr>
+<tr><td><code>Rules/</code></td><td>Coding standards, .cursorrules, .clinerules, style guides</td></tr>
+<tr><td><code>Personas/</code></td><td>Role definitions: "act as PM," "act as trader," "act as engineer"</td></tr>
+<tr><td><code>Scratchpads/</code></td><td>Working memory for active agent sessions — temporary, disposable</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>110-Logs</h3><span class="brain-tag">Hippocampus</span></div>
+<p>Everything that happens gets recorded here. Creates an audit trail and enables agents to learn from past actions.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Daily/</code></td><td>Daily journal entries and standup notes</td></tr>
+<tr><td><code>Weekly/</code></td><td>Weekly review summaries and retrospectives</td></tr>
+<tr><td><code>Decisions/</code></td><td>Decision records with context, options considered, and rationale</td></tr>
+<tr><td><code>Agent-Runs/</code></td><td>Timestamped logs of agent executions: what ran, when, and output</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>120-Templates</h3><span class="brain-tag">DNA / Blueprints</span></div>
+<p>Standardized patterns ensuring consistency when creating new content.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>project-template.md</code></td><td>Standard structure for new project folders</td></tr>
+<tr><td><code>task-template.md</code></td><td>Format for individual task entries with status tracking</td></tr>
+<tr><td><code>daily-log-template.md</code></td><td>Daily journal template with sections for wins, blockers, and focus</td></tr>
+<tr><td><code>agent-config-template.md</code></td><td>Standard format for defining a new agent</td></tr>
+<tr><td><code>skill-template.md</code></td><td>Template for documenting a new skill</td></tr>
+<tr><td><code>mcp-server-template.md</code></td><td>Template for registering a new MCP server connection</td></tr>
+<tr><td><code>prompt-template.md</code></td><td>Template for creating reusable prompts</td></tr>
+</tbody></table></div>
+
+<div class="folder-header"><h3>130-Archive</h3><span class="brain-tag">Deep Storage</span></div>
+<p>Retired content that's no longer active but may be useful someday. Move completed projects, outdated configs, and deprecated skills here rather than deleting them.</p>
+
+<!-- INFORMATION FLOW -->
+<h3 id="flow">How Information Flows Through the Vault</h3>
+
+<div class="callout">
+<strong>The 9-step lifecycle:</strong> Input → Routing → Prioritization → Execution → Monitoring → Recording → Consolidation → Cross-linking → Retirement
+</div>
+
+<ol>
+<li><strong>Input (Sensory)</strong> — New information enters through <code>000-Inbox</code></li>
+<li><strong>Routing (Thalamus)</strong> — <code>015-Dashboard/routing-rules.md</code> determines where items go</li>
+<li><strong>Prioritization (Amygdala)</strong> — Items get urgency tags in <code>035-Priorities</code></li>
+<li><strong>Execution (Prefrontal + Cerebellum)</strong> — Tasks get worked using Skills, executed by Agents, following Routines</li>
+<li><strong>Monitoring (RAS)</strong> — <code>025-Watchlist</code> passively monitors and triggers alerts</li>
+<li><strong>Recording (Hippocampus)</strong> — Everything logged in <code>110-Logs</code></li>
+<li><strong>Consolidation (Long-term Memory)</strong> — Insights move to <code>090-Knowledge</code></li>
+<li><strong>Cross-linking (Corpus Callosum)</strong> — <code>095-Connections</code> prevents silos</li>
+<li><strong>Retirement (Deep Storage)</strong> — Completed content moves to <code>130-Archive</code></li>
+</ol>
+
+<!-- ======== ARCHITECTURE ======== -->
+<h2 id="brain-body">Architecture: Brain vs Body</h2>
+
+<p>The system is split into two distinct locations. The Obsidian Vault is the <strong>brain</strong> — it remembers, tracks, and documents rules and processes. The Projects folder is the <strong>body</strong> — it holds the actual work product, source code, and project-specific documentation.</p>
+
+<div class="diagram-wrap">
+  <img src="assets/architecture-diagram.png" alt="OpenVault Architecture — Brain vs Body">
+</div>
+
+<h3>Why Separate?</h3>
+<p>Mixing orchestration files with source code creates git merge conflicts, bloated vaults, Obsidian indexing thousands of code files, and agents accidentally editing source code. The separation keeps each system clean and purpose-built.</p>
+
+<h3>The Two Locations</h3>
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>Obsidian Vault (Brain)</th><th>Projects Folder (Body)</th></tr></thead>
+<tbody>
+<tr><td><strong>Location</strong></td><td><code>~/OpenVault/</code></td><td><code>~/Projects/</code></td></tr>
+<tr><td><strong>Purpose</strong></td><td>Memory, orchestration, rules, tracking, knowledge</td><td>Source code, project docs, configs, GitHub repos</td></tr>
+<tr><td><strong>Git</strong></td><td>Vault backup repo (private)</td><td>Each project is its own GitHub repo</td></tr>
+<tr><td><strong>OpenClaw</strong></td><td>Reads for HOW to work (skills, prompts, routines)</td><td>Reads for WHAT to work on (code, docs, issues)</td></tr>
+<tr><td><strong>Bridge</strong></td><td><code>tasks.md</code> links to GitHub</td><td><code>CLAUDE.md</code> and <code>docs/</code> provide context</td></tr>
+</tbody></table></div>
+
+<div class="callout-warm callout">
+<strong>The Bridge: tasks.md</strong> — The only project file inside the vault. One per active project. Contains task status, priority, assignee, due dates, and GitHub issue links. Just enough for the Dashboard to aggregate, but no project-specific documentation.
+</div>
+
+<h3>Project Folder Layout</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>File / Subfolder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>src/</code></td><td>Source code, application logic, components, scripts</td></tr>
+<tr><td><code>docs/</code></td><td>All project-specific documentation</td></tr>
+<tr><td><code>logs/</code></td><td>Project-specific activity logs and change history</td></tr>
+<tr><td><code>CLAUDE.md</code></td><td>Project-specific agent context and coding instructions</td></tr>
+<tr><td><code>.env.example</code></td><td>Template for environment variables (no real values)</td></tr>
+<tr><td><code>README.md</code></td><td>Standard GitHub readme for the repository</td></tr>
+</tbody></table></div>
+
+<h4>The docs/ folder</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>docs/overview.md</code></td><td>Project summary: goals, scope, stakeholders, timeline</td></tr>
+<tr><td><code>docs/workflow.md</code></td><td>Data flow, architecture diagrams, what triggers what</td></tr>
+<tr><td><code>docs/tools.md</code></td><td>Tools, APIs, platforms, third-party services used</td></tr>
+<tr><td><code>docs/data-map.md</code></td><td>Database schemas, API endpoints, data sources</td></tr>
+<tr><td><code>docs/secrets.md</code></td><td>Environment variable names and vault paths — never credentials</td></tr>
+<tr><td><code>docs/phases/</code></td><td>Phase breakdowns: phase-1-design.md, phase-2-build.md, etc.</td></tr>
+</tbody></table></div>
+
+<h3 id="workflow">The 5-Step Workflow</h3>
+
+<ol>
+<li><strong>Check the brain</strong> — Read <code>015-Dashboard</code> for active focus, scan <code>010-Projects/Active/</code> for tasks, load skills/prompts/routines</li>
+<li><strong>Go to the workbench</strong> — Navigate to <code>~/Projects/{{name}}/</code>, read <code>docs/overview.md</code>, <code>docs/workflow.md</code>, and <code>CLAUDE.md</code></li>
+<li><strong>Do the work</strong> — Operate on source files in <code>src/</code> using vault's skills and prompts. All code changes in Projects folder, never vault.</li>
+<li><strong>Update the brain</strong> — Update <code>tasks.md</code> with status changes, log in <code>110-Logs/Agent-Runs/</code>, Dashboard auto-aggregates</li>
+<li><strong>Push to GitHub</strong> — Commit and push code changes. <code>tasks.md</code> links to relevant issues and PRs.</li>
+</ol>
+
+<!-- ======== PHASES ======== -->
+<h2 id="phases">Phases & Task Management</h2>
+
+<p>Every project follows a six-phase lifecycle. Phases provide structure for how work progresses from idea to production, and every task is tagged with the phase it belongs to.</p>
+
+<h3>The Six Phases</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>#</th><th>Phase</th><th>Code</th><th>Gate (advance when…)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Planning & Research</td><td><code>1-Plan</code></td><td>Goals defined, feasibility confirmed, resources identified</td></tr>
+<tr><td>2</td><td>Design (UI/UX)</td><td><code>2-Design</code></td><td>Wireframes approved, UI/UX finalized, prototype reviewed</td></tr>
+<tr><td>3</td><td>Development</td><td><code>3-Dev</code></td><td>Core features built, APIs integrated, code reviewed</td></tr>
+<tr><td>4</td><td>Testing (QA)</td><td><code>4-QA</code></td><td>Critical bugs fixed, performance acceptable, security passed</td></tr>
+<tr><td>5</td><td>Deployment</td><td><code>5-Deploy</code></td><td>Live on production, monitoring active, rollback plan ready</td></tr>
+<tr><td>6</td><td>Maintenance</td><td><code>6-Maint</code></td><td>Ongoing — no exit gate</td></tr>
+</tbody></table></div>
+
+<div class="callout">
+<strong>Overlap rules:</strong> Phases are overlapping, not rigid sequential. Future-phase tasks can be created and queued but must stay in Queued status until their phase activates. A phase activates when the previous phase's gate criteria are met.
+</div>
+
+<!-- TASKS.MD SPEC -->
+<h3 id="tasks-spec">The tasks.md Specification</h3>
+
+<p>One <code>tasks.md</code> exists per active project at <code>010-Projects/Active/{{ProjectName}}/tasks.md</code> inside the vault.</p>
+
+<h4>Header Fields</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>Field</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>Repo</code></td><td>GitHub repository URL</td></tr>
+<tr><td><code>Local</code></td><td>Local filesystem path (<code>~/Projects/{{name}}</code>)</td></tr>
+<tr><td><code>Docs</code></td><td>Path to project documentation (<code>~/Projects/{{name}}/docs/</code>)</td></tr>
+<tr><td><code>Branch</code></td><td>Active git branch (typically <code>main</code>)</td></tr>
+<tr><td><code>Prefix</code></td><td>2–3 letter project prefix for globally unique task IDs</td></tr>
+<tr><td><code>Current Phase</code></td><td>Active phase with emoji indicator (e.g., 🔵 3 — Development)</td></tr>
+<tr><td><code>Phase Progress</code></td><td>Visual bar showing all six phases (e.g., <span class="phase-bar">✅✅🔵⬜⬜⬜</span>)</td></tr>
+<tr><td><code>Last Synced</code></td><td>Timestamp of last update</td></tr>
+</tbody></table></div>
+
+<h4>Active Tasks Table Columns</h4>
+<div class="table-wrap"><table>
+<thead><tr><th>Column</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>ID</code></td><td>Globally unique: project prefix + sequential number (e.g., ST-001)</td></tr>
+<tr><td><code>Task</code></td><td>Short, actionable description</td></tr>
+<tr><td><code>Phase</code></td><td>Phase code: <code>1-Plan</code>, <code>2-Design</code>, <code>3-Dev</code>, <code>4-QA</code>, <code>5-Deploy</code>, <code>6-Maint</code></td></tr>
+<tr><td><code>Status</code></td><td>🟡 Queued · 🔵 In Progress · ✅ Completed · ❌ Failed · ⏸️ Paused · 🚫 Blocked</td></tr>
+<tr><td><code>Priority</code></td><td>🔴 Critical · 🟠 High · 🟡 Normal · 🟢 Low</td></tr>
+<tr><td><code>Assignee</code></td><td><code>claude-code</code>, <code>openclaw</code>, <code>manual</code>, or <code>—</code></td></tr>
+<tr><td><code>Due</code></td><td>Target completion date</td></tr>
+<tr><td><code>GitHub</code></td><td>Link to GitHub issue or PR</td></tr>
+</tbody></table></div>
+
+<h4>Example tasks.md</h4>
+<pre># {{ProjectName}} — Tasks
+Repo: github.com/{{username}}/{{repo-name}}
+Local: ~/Projects/{{repo-name}}
+Docs: ~/Projects/{{repo-name}}/docs/
+Branch: main
+Prefix: {{PX}}-
+Current Phase: 🔵 3 — Development
+Phase Progress: ✅✅🔵⬜⬜⬜
+Last Synced: 2026-02-16 09:00
+───
+## Active — Build
+| ID       | Task                    | Phase   | Status         | Priority  | Assignee    | Due  | GitHub |
+| {{PX}}-001 | Build alert API         | 3-Dev   | 🔵 In Progress | 🟠 High   | claude-code | 2/18 | #12    |
+| {{PX}}-002 | Rebalance logic         | 3-Dev   | 🟡 Queued      | 🟡 Normal | openclaw    | 2/20 | #14    |
+| {{PX}}-003 | Write integration tests | 4-QA    | 🟡 Queued      | 🟢 Low    | —           | —    | —      |
+| {{PX}}-004 | Deploy to staging       | 5-Deploy| 🟡 Queued      | 🟡 Normal | —           | —    | —      |
+
+## Active — Ops
+| ID       | Task                        | Category    | Status         | Priority  | Assignee    | Due  | GitHub |
+| {{PX}}-050 | Fix null pointer in parser  | 🐛 Bug      | 🔵 In Progress | 🟠 High   | claude-code | 2/16 | #15    |
+| {{PX}}-051 | Update axios to v1.7        | 📦 Dep      | 🟡 Queued      | 🟢 Low    | —           | —    | —      |
+| {{PX}}-052 | Add rate limiting           | 🔒 Security | 🟡 Queued      | 🟠 High   | —           | 2/19 | #16    |
+───
+## Completed
+| ID       | Task                  | Type  | Completed  | Duration | GitHub | Notes         |
+| {{PX}}-000 | Scaffold project repo | Build | 2026-02-12 | 2h       | #1     | Initial setup |
+| {{PX}}-049 | Fix CORS headers      | Ops   | 2026-02-14 | 20m      | #11    | Config fix    |
+
+## Blocked
+| ID       | Task              | Type  | Blocked By | Since      | Notes                      |
+| {{PX}}-003 | Write integ tests | Build | {{PX}}-001 | 2026-02-15 | Needs API schema finalized |</pre>
+
+<!-- ======== BUILD VS OPS ======== -->
+<h2 id="build-ops">Build Tasks vs Ops Tasks</h2>
+
+<p>Not every task follows a six-phase lifecycle. The system recognizes two distinct task types to avoid unnecessary overhead on one-off changes.</p>
+
+<h3>Two Task Types</h3>
+
+<p><span class="badge badge-build">BUILD</span> Follow the six-phase lifecycle. Features, new systems, or major changes that require planning through deployment. They have phases, dependencies, deliverables, and gate criteria.</p>
+
+<p><span class="badge badge-ops">OPS</span> Single-action items with no phase progression. Bug fixes, config changes, dependency updates, quick improvements. Created, worked, and closed.</p>
+
+<h3>How to Tell Them Apart</h3>
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>Build Task</th><th>Ops Task</th></tr></thead>
+<tbody>
+<tr><td><strong>Scope</strong></td><td>Multi-step, multi-day or multi-week</td><td>Single action, hours to a day</td></tr>
+<tr><td><strong>Phases</strong></td><td>Tagged with <code>1-Plan</code> through <code>6-Maint</code></td><td>No phase — tagged with a category</td></tr>
+<tr><td><strong>Dependencies</strong></td><td>Often blocked by other tasks or phases</td><td>Usually standalone</td></tr>
+<tr><td><strong>Deliverable</strong></td><td>Maps to phase objectives and milestones</td><td>The fix or change IS the deliverable</td></tr>
+<tr><td><strong>Example</strong></td><td>Build portfolio rebalance engine</td><td>Fix null pointer in parser</td></tr>
+<tr><td><strong>Lifecycle</strong></td><td>Queued → In Progress → Completed (across phases)</td><td>Queued → In Progress → Done</td></tr>
+</tbody></table></div>
+
+<h3>Ops Task Categories</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Emoji</th><th>Category</th><th>Use For</th></tr></thead>
+<tbody>
+<tr><td>🐛</td><td><strong>Bug</strong></td><td>Defects, errors, broken behavior, regressions</td></tr>
+<tr><td>📦</td><td><strong>Dep</strong></td><td>Dependency updates, library upgrades, version bumps</td></tr>
+<tr><td>🔒</td><td><strong>Security</strong></td><td>Vulnerability patches, auth fixes, hardening</td></tr>
+<tr><td>⚡</td><td><strong>Perf</strong></td><td>Performance improvements, optimization, caching</td></tr>
+<tr><td>🔧</td><td><strong>Config</strong></td><td>Environment changes, settings, infrastructure tweaks</td></tr>
+<tr><td>📝</td><td><strong>Docs</strong></td><td>Documentation updates, README, inline comments</td></tr>
+<tr><td>🔍</td><td><strong>Investigate</strong></td><td>Research, debugging, root cause analysis</td></tr>
+<tr><td>🧹</td><td><strong>Chore</strong></td><td>Refactoring, cleanup, tech debt, code hygiene</td></tr>
+</tbody></table></div>
+
+<h3>Task ID Numbering</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Type</th><th>ID Range</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><span class="badge badge-build">Build</span></td><td><code>{{PX}}-001</code> to <code>{{PX}}-049</code></td><td>ST-001, ST-002, ST-003</td></tr>
+<tr><td><span class="badge badge-ops">Ops</span></td><td><code>{{PX}}-050</code> to <code>{{PX}}-999</code></td><td>ST-050, ST-051, ST-052</td></tr>
+</tbody></table></div>
+
+<h3>Dashboard Aggregation</h3>
+<pre>## Project Status — {{ProjectName}}
+Phase: 🔵 3-Dev | ✅✅🔵⬜⬜⬜
+
+### Build Tasks
+| In Progress | Queued | Blocked | Done |
+| 1           | 2      | 1       | 1    |
+
+### Ops Tasks
+| In Progress | Queued | Done (7d) |
+| 1           | 2      | 1         |
+
+### ⚠️ Attention
+🐛 {{PX}}-050: Fix null pointer (High, in progress)
+🔒 {{PX}}-052: Add rate limiting (High, due 2/19)</pre>
+
+<!-- ======== REVISION LOG ======== -->
+<h2 id="revision-log">Revision Log</h2>
+
+<div class="table-wrap revision-table"><table>
+<thead><tr><th>Rev</th><th>Date</th><th>Changes</th></tr></thead>
+<tbody>
+<tr><td>1.0</td><td>2026-02-16</td><td>Initial release. 18-folder brain-mapped vault architecture, information flow lifecycle, folder reference guide.</td></tr>
+<tr><td>2.0</td><td>2026-02-16</td><td>Added Brain vs Body architecture section. Separated Obsidian Vault (brain) from Projects folder (body). Defined tasks.md as the bridge.</td></tr>
+<tr><td>3.0</td><td>2026-02-16</td><td>Added Phases & Task Management section. Six-phase lifecycle with codes, gate criteria, overlap rules, phase file templates, and full tasks.md specification.</td></tr>
+<tr><td>4.0</td><td>2026-02-16</td><td>Added architecture diagram. Added Build Tasks vs Ops Tasks section with categories, ID numbering convention, and dashboard aggregation.</td></tr>
+<tr><td>5.0</td><td>2026-02-16</td><td>Renamed to OpenVault (open-vault.dev). Updated example tasks.md with Build + Ops split format. Added revision log.</td></tr>
+</tbody></table></div>
+
+</main>
+</div><!-- layout -->
+</div><!-- page -->
+
+<div class="footer">
+  <p>🧠 <strong>OpenVault</strong> · <a href="https://open-vault.dev">open-vault.dev</a> · Version 5.0</p>
+</div>
+
+</body>
+</html>
