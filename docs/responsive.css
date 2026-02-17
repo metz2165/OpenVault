@@ -38,8 +38,9 @@
   .folder-header { flex-wrap: wrap; gap: 8px; }
 
   /* Sticky header layout */
-  .header-inner { padding: 8px 16px; grid-template-columns: auto 1fr auto; }
-  .header-title { font-size: 18px; }
+  .header-inner { padding: 8px 16px; }
+  .header-title { font-size: 18px; line-height: 34px; }
+  .header-brain { font-size: 18px; line-height: 34px; }
   .header-links { font-size: 9.5px; }
   .directory-toggle { min-width: 108px; height: 34px; }
   .directory-menu { width: min(280px, calc(100vw - 32px)); }
@@ -159,18 +160,9 @@
   .badge { font-size: 11px; padding: 1px 6px; }
 
   /* Header directory menu — smaller for phone */
-  .header-inner {
-    padding: 8px 14px;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      "brand directory"
-      "title title";
-    row-gap: 6px;
-  }
-  .header-brand { grid-area: brand; }
-  .header-title-group { grid-area: title; text-align: left; }
-  .header-directory-wrap { grid-area: directory; }
-  .header-title { font-size: 20px; }
+  .header-inner { padding: 8px 14px; }
+  .header-brain { font-size: 18px; line-height: 32px; }
+  .header-title { font-size: 18px; line-height: 32px; }
   .header-links { white-space: normal; line-height: 1.4; }
   .directory-toggle { min-width: 102px; height: 32px; font-size: 10px; }
   .directory-menu { width: calc(100vw - 28px); }
@@ -207,7 +199,8 @@
 
   .folder-header .brain-tag { font-size: 9px; }
 
-  .header-title { font-size: 20px; }
+  .header-brain { font-size: 17px; line-height: 30px; }
+  .header-title { font-size: 17px; line-height: 30px; }
   .header-links { font-size: 9px; }
   .directory-toggle { min-width: 96px; height: 30px; }
 
