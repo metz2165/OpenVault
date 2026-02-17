@@ -39,7 +39,7 @@
 
   /* Sticky header layout */
   .header-inner { padding: 8px 16px; grid-template-columns: auto 1fr auto; }
-  .header-title { font-size: 20px; }
+  .header-title { font-size: 18px; }
   .header-links { font-size: 9.5px; }
   .directory-toggle { min-width: 108px; height: 34px; }
   .directory-menu { width: min(280px, calc(100vw - 32px)); }
@@ -170,7 +170,7 @@
   .header-brand { grid-area: brand; }
   .header-title-group { grid-area: title; text-align: left; }
   .header-directory-wrap { grid-area: directory; }
-  .header-title { font-size: 22px; }
+  .header-title { font-size: 20px; }
   .header-links { white-space: normal; line-height: 1.4; }
   .directory-toggle { min-width: 102px; height: 32px; font-size: 10px; }
   .directory-menu { width: calc(100vw - 28px); }
