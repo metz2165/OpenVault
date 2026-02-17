@@ -1,4 +1,4 @@
-# 🧠 OpenVault
+# 🧠 OpenVault Guide
 
 **[open-vault.dev](https://open-vault.dev)**
 
