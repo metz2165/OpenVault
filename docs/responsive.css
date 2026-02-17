@@ -31,18 +31,10 @@
 
   .folder-header { flex-wrap: wrap; gap: 8px; }
 
-  /* Sidebar: horizontal pill layout */
-  .sidebar nav { flex-direction: row; flex-wrap: wrap; gap: 4px 8px; }
-  .sidebar a {
-    padding: 6px 12px;
-    border-left: none;
-    border-bottom: 2px solid transparent;
-    font-size: 13px;
-  }
-  .sidebar a:hover { border-left-color: transparent; border-bottom-color: var(--border); }
-  .sidebar a.active { border-left-color: transparent; border-bottom-color: var(--accent); }
-  .directory-menu { padding: 8px; }
-  .nav-section { padding: 10px 10px 4px; width: 100%; }
+  /* Header directory menu */
+  .header-inner { padding: 8px 16px; }
+  .directory-toggle { min-width: 108px; height: 34px; }
+  .directory-menu { width: min(280px, calc(100vw - 32px)); }
 }
 
 /* ---- Phone (≤ 600px) ---- */
@@ -109,9 +101,10 @@
   /* Badges */
   .badge { font-size: 11px; padding: 1px 6px; }
 
-  /* Nav pills — smaller for phone */
-  .sidebar nav { gap: 3px 6px; }
-  .sidebar a { font-size: 12px; padding: 5px 10px; }
+  /* Header directory menu — smaller for phone */
+  .header-inner { padding: 8px 14px; }
+  .directory-toggle { min-width: 102px; height: 32px; font-size: 10px; }
+  .directory-menu { width: calc(100vw - 28px); }
 
   /* Footer */
   .footer { padding: 24px 14px; margin-top: 48px; font-size: 12px; }
@@ -146,7 +139,7 @@
 
   .folder-header .brain-tag { font-size: 9px; }
 
-  .sidebar a { font-size: 11px; padding: 4px 8px; }
+  .directory-toggle { min-width: 96px; height: 30px; }
 
   .footer { padding: 20px 10px; margin-top: 36px; }
 }
