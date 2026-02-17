@@ -61,9 +61,7 @@
   }
   .header-brand {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
+    align-items: center;
   }
   .header-brand-main {
     display: flex;
@@ -441,10 +439,11 @@
   <div class="header-inner">
     <div class="header-brand">
       <div class="header-brand-main">
-        <span class="header-brain">🧠</span><span class="header-title" id="header-title-text">OpenVault</span>
+        <span class="header-brain">🧠</span><span class="header-title">OpenVault</span>
       </div>
     </div>
     <div class="header-controls">
+      <a class="header-github" href="https://github.com/metz2165/OpenVault" target="_blank" rel="noopener noreferrer">GitHub</a>
       <label class="header-page-label" for="page-select">Page</label>
       <select class="header-page-select" id="page-select" aria-label="Select a page">
         <option value="overview">OpenVault</option>
@@ -454,11 +453,6 @@
     </div>
   </div>
 </header>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-title-line"><span class="hero-emoji">🧠</span><h1 id="hero-title-text">OpenVault</h1></div>
-</div>
 
 <div class="page-shell">
   <section class="content-page is-active" data-page="overview">
@@ -988,21 +982,11 @@ Phase: 🔵 3-Dev | ✅✅🔵⬜⬜⬜
 <script>
   (() => {
     const pageSelect = document.getElementById('page-select');
-    const headerTitleText = document.getElementById('header-title-text');
-    const heroTitleText = document.getElementById('hero-title-text');
     const pages = Array.from(document.querySelectorAll('.content-page'));
-    const pageTitles = {
-      overview: 'OpenVault',
-      vault: 'Obsidian Vault (Brain)',
-      project: 'Project Folder (Body)'
-    };
 
     const setPage = (pageKey) => {
       pages.forEach((page) => page.classList.toggle('is-active', page.dataset.page === pageKey));
       pageSelect.value = pageKey;
-      const nextTitle = pageTitles[pageKey] || pageTitles.overview;
-      headerTitleText.textContent = nextTitle;
-      heroTitleText.textContent = nextTitle;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
