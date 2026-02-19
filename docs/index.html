@@ -983,6 +983,27 @@ Phase: 🔵 3-Dev | ✅✅🔵⬜⬜⬜
 
 <script>
   (() => {
+    const removeFloatingOpenVaultButton = () => {
+      const candidates = Array.from(document.querySelectorAll('a, button'));
+
+      candidates.forEach((element) => {
+        const label = (element.textContent || '').toLowerCase();
+        if (!label.includes('open-vault.dev') && !label.includes('open—vault.dev')) {
+          return;
+        }
+
+        const styles = window.getComputedStyle(element);
+        if (styles.position === 'fixed') {
+          element.remove();
+        }
+      });
+    };
+
+    removeFloatingOpenVaultButton();
+
+    const observer = new MutationObserver(() => removeFloatingOpenVaultButton());
+    observer.observe(document.body, { childList: true, subtree: true });
+
     const pageSelect = document.getElementById('page-select');
     const pages = Array.from(document.querySelectorAll('.content-page'));
 
