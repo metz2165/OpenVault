@@ -1,0 +1,998 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 3550 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+(OpenVault Documentation \(Combined Pages\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(=== OpenVault ===) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Intro) Tj
+0 -14 Td
+(OpenVault is designed to mirror how cognition works, turning complex operations into a clear,) Tj
+0 -14 Td
+(navigable system.) Tj
+0 -14 Td
+(This Obsidian vault serves as the central nervous system for OpenClaw ? an AI orchestration) Tj
+0 -14 Td
+(platform that manages tasks, automations, and knowledge.) Tj
+0 -14 Td
+(Each Obsidian folder maps to a functional region of the human brain, creating an intuitive) Tj
+0 -14 Td
+(architecture for how information flows, gets processed, stored, and acted upon. The UI design) Tj
+0 -14 Td
+(helps both humans and AI agents navigate it naturally.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Architecture: Brain vs Body) Tj
+0 -14 Td
+(The system is split into two distinct locations. The Obsidian Vault is the brain ? it) Tj
+0 -14 Td
+(remembers, tracks, and documents rules and processes. The Projects folder is the body ? it) Tj
+0 -14 Td
+(holds the actual work product, source code, and project-specific documentation.) Tj
+0 -14 Td
+(Brain vs BodyThree core parts and the connections between them) Tj
+0 -14 Td
+(Obsidian Vault) Tj
+0 -14 Td
+(~/OpenVault/Brain: memory, planning, and tracking?) Tj
+0 -14 Td
+(OpenClaw) Tj
+0 -14 Td
+(Agent LayerReads vault context and works in projects?) Tj
+0 -14 Td
+(Projects) Tj
+0 -14 Td
+(~/Projects/Body: source code, docs, and delivery) Tj
+0 -14 Td
+(Why Separate?) Tj
+0 -14 Td
+(Mixing orchestration files with source code creates git merge conflicts, bloated vaults,) Tj
+0 -14 Td
+(Obsidian indexing thousands of code files, and agents accidentally editing source code. The) Tj
+0 -14 Td
+(separation keeps each system clean and purpose-built.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Why Obsidian Vault?) Tj
+0 -14 Td
+(Keeping this system in Obsidian reduces cognitive load by making critical context easy to scan) Tj
+0 -14 Td
+(instead of repeatedly searching code repositories. Linked notes, graph relationships, and) Tj
+0 -14 Td
+(structured dashboards speed decisions by making dependencies visible at a glance for both) Tj
+0 -14 Td
+(humans and agents. By separating planning from implementation noise, the vault supports faster) Tj
+0 -14 Td
+(retrieval, steadier execution, and more sustainable day-to-day operations.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(The Two Locations) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | | Obsidian Vault \(Brain\) | Projects Folder \(Body\)) Tj
+0 -14 Td
+( | Location | ~/OpenVault/ | ~/Projects/) Tj
+0 -14 Td
+( | Purpose | Memory, orchestration, rules, tracking, knowledge | Source code, project docs,) Tj
+0 -14 Td
+(configs, GitHub repos) Tj
+0 -14 Td
+( | Git | Vault backup repo \(private\) | Each project is its own GitHub repo) Tj
+0 -14 Td
+( | OpenClaw | Reads for HOW to work \(skills, prompts, routines\) | Reads for WHAT to work on) Tj
+0 -14 Td
+(\(code, docs, issues\)) Tj
+0 -14 Td
+( | Bridge | tasks.md links to GitHub | CLAUDE.md and docs/ provide contextThe Bridge: tasks.md) Tj
+0 -14 Td
+(? The only project file inside the vault. One per active project. Contains task status,) Tj
+0 -14 Td
+(priority, assignee, due dates, and GitHub issue links. Just enough for the Dashboard to) Tj
+0 -14 Td
+(aggregate, but no project-specific documentation.) Tj
+0 -14 Td
+(The 5-Step Workflow) Tj
+0 -14 Td
+(? Check the brain ? Read 015-Dashboard for active focus, scan 010-Projects/Active/ for tasks,) Tj
+0 -14 Td
+(load skills/prompts/routines) Tj
+0 -14 Td
+(? Go to the workbench ? Navigate to ~/Projects/{{name}}/, read docs/overview.md,) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Length 3870 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+(docs/workflow.md, and CLAUDE.md) Tj
+0 -14 Td
+(? Do the work ? Operate on source files in src/ using vault's skills and prompts. All code) Tj
+0 -14 Td
+(changes in Projects folder, never vault.) Tj
+0 -14 Td
+(? Update the brain ? Update tasks.md with status changes, log in 110-Logs/Agent-Runs/,) Tj
+0 -14 Td
+(Dashboard auto-aggregates) Tj
+0 -14 Td
+(? Push to GitHub ? Commit and push code changes. tasks.md links to relevant issues and PRs.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(=== Obsidian ===) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Obsidian Vault) Tj
+0 -14 Td
+(This page documents the Obsidian Vault itself: the folder map, each brain-inspired section,) Tj
+0 -14 Td
+(and how information moves through the vault from capture to long-term knowledge. Folders are) Tj
+0 -14 Td
+(numbered \(000?130\) to maintain consistent sort order across file browsers, CLI tools, and) Tj
+0 -14 Td
+(agent file access.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Folders) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Folder | Brain Region | Core Function) Tj
+0 -14 Td
+( | 000-Inbox | Sensory Input | Raw captures, unsorted notes, clippings before processing) Tj
+0 -14 Td
+( | 010-Projects | Prefrontal Cortex | Executive planning, active project management) Tj
+0 -14 Td
+( | 015-Dashboard | Thalamus | Central routing, system status, daily briefing) Tj
+0 -14 Td
+( | 020-Tasks | Working Memory | Immediate task tracking: today, upcoming, someday) Tj
+0 -14 Td
+( | 025-Watchlist | Reticular Activating System | Attention filtering, alerts, monitors, feeds) Tj
+0 -14 Td
+( | 030-Agents | Neural Pathways | Agent configs, logs, templates, and memory) Tj
+0 -14 Td
+( | 035-Priorities | Amygdala | Urgency tagging and priority classification) Tj
+0 -14 Td
+( | 040-Skills | Cerebellum | Procedural memory: reusable skills and commands) Tj
+0 -14 Td
+( | 050-MCP | Synapses | MCP server connections, tools, resources) Tj
+0 -14 Td
+( | 060-Prompts | Neocortex | Higher reasoning: system prompts, chains, fragments) Tj
+0 -14 Td
+( | 070-Routines | Autonomic NS | Automatic + scheduled + triggered workflows) Tj
+0 -14 Td
+( | 080-Bookmarks | Temporal Lobe | Reference storage: links, articles, tools) Tj
+0 -14 Td
+( | 090-Knowledge | Long-term Memory | Domain knowledge: engineering, trading, devops, health) Tj
+0 -14 Td
+( | 095-Connections | Corpus Callosum | Cross-linking, maps of content, tag indexes) Tj
+0 -14 Td
+( | 100-Context | Prefrontal Context | CLAUDE.md files, rules, personas, scratchpads) Tj
+0 -14 Td
+( | 110-Logs | Hippocampus | Episodic recording: daily, weekly, decisions, agent runs) Tj
+0 -14 Td
+( | 120-Templates | DNA / Blueprints | Replicable patterns for all vault content types) Tj
+0 -14 Td
+( | 130-Archive | Deep Storage | Retired content preserved for reference) Tj
+0 -14 Td
+(000-Inbox) Tj
+0 -14 Td
+(Sensory InputThe default landing zone for anything captured quickly ? ideas, links,) Tj
+0 -14 Td
+(screenshots, voice memos, clippings from the web, or quick notes. Nothing lives here) Tj
+0 -14 Td
+(permanently; it gets triaged into the appropriate folder during regular processing.) Tj
+0 -14 Td
+(? Process the Inbox at least once daily \(or set up an agent to auto-triage\)) Tj
+0 -14 Td
+(? Keep items here less than 48 hours) Tj
+0 -14 Td
+(? Use routing-rules.md in 015-Dashboard to define where items go) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(010-Projects) Tj
+0 -14 Td
+(Prefrontal CortexEach project gets its own subfolder under Active, On-Hold, or Completed.) Tj
+0 -14 Td
+(Projects contain everything needed to execute: an overview, task lists, phase breakdowns,) Tj
+0 -14 Td
+(logs, and reference materials.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File / Subfolder | Purpose) Tj
+0 -14 Td
+( | Active/ | Projects currently being worked on) Tj
+0 -14 Td
+( | ProjectName/overview.md | Project summary: goals, scope, stakeholders, timeline) Tj
+0 -14 Td
+( | ProjectName/tasks.md | Project-specific task list with status tracking) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 3771 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+( | ProjectName/phases/ | Phase breakdowns \(e.g., phase-1-design.md, phase-2-build.md\)) Tj
+0 -14 Td
+( | ProjectName/logs/ | Project-specific activity logs and meeting notes) Tj
+0 -14 Td
+( | ProjectName/references/ | Supporting docs, links, specs relevant to this project) Tj
+0 -14 Td
+( | On-Hold/ | Projects paused but not abandoned) Tj
+0 -14 Td
+( | Completed/ | Finished projects preserved for reference) Tj
+0 -14 Td
+(015-Dashboard) Tj
+0 -14 Td
+(ThalamusThe nerve center of the vault. Provides at-a-glance system status, tells OpenClaw what) Tj
+0 -14 Td
+(to focus on, generates daily briefings, and defines routing rules for Inbox items.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File | Purpose) Tj
+0 -14 Td
+( | system-status.md | Health status of all automations, agents, backups, and cron jobs) Tj
+0 -14 Td
+( | active-focus.md | What OpenClaw should prioritize RIGHT NOW ? the current directive) Tj
+0 -14 Td
+( | daily-brief.md | Auto-generated morning summary: tasks due, alerts, calendar, priorities) Tj
+0 -14 Td
+( | routing-rules.md | Rules defining how Inbox items get auto-sorted into folders) Tj
+0 -14 Td
+(020-Tasks) Tj
+0 -14 Td
+(Working MemoryIndividual action items that need to be done. The tasks.md file uses the) Tj
+0 -14 Td
+(OpenClaw task tracker format with status emojis, timestamps, and agent attribution.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File | Purpose) Tj
+0 -14 Td
+( | today.md | Tasks that must be completed today) Tj
+0 -14 Td
+( | upcoming.md | Tasks scheduled for the near future \(this week / next week\)) Tj
+0 -14 Td
+( | someday.md | Ideas and tasks with no firm deadline ? the backlog) Tj
+0 -14 Td
+(025-Watchlist) Tj
+0 -14 Td
+(Reticular Activating SystemItems that need passive monitoring. Rather than requiring active) Tj
+0 -14 Td
+(work, these trigger attention only when specific conditions are met.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | Alerts/ | Active alert conditions and thresholds \(e.g., price drops, HRV below Y\)) Tj
+0 -14 Td
+( | Monitors/ | Things being tracked: stock prices, health metrics, project deadlines) Tj
+0 -14 Td
+( | Feeds/ | RSS feeds, API endpoints, data streams, and webhooks to watch) Tj
+0 -14 Td
+(030-Agents) Tj
+0 -14 Td
+(Neural PathwaysDefines WHO does the work. Each agent has a configuration, produces logs, and) Tj
+0 -14 Td
+(can draw on persistent memory split between working, episodic, and semantic memory.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | Configs/ | Agent definitions: system prompts, personas, tool access, capabilities) Tj
+0 -14 Td
+( | Logs/ | Agent run history: what they did, when, and results) Tj
+0 -14 Td
+( | Templates/ | Reusable agent templates for spinning up new agents quickly) Tj
+0 -14 Td
+( | Memory/Working/ | Current session context and scratchpads ? clears regularly) Tj
+0 -14 Td
+( | Memory/Episodic/ | Records of specific events and interactions over time) Tj
+0 -14 Td
+( | Memory/Semantic/ | Consolidated facts, learned patterns, permanent knowledge) Tj
+0 -14 Td
+(035-Priorities) Tj
+0 -14 Td
+(AmygdalaThe vault's triage system. Agents auto-classify items using priority-rules.md; humans) Tj
+0 -14 Td
+(can override at any time.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File | Purpose) Tj
+0 -14 Td
+( | critical.md | ? Must act immediately ? blockers, failures, urgent deadlines) Tj
+0 -14 Td
+( | high.md | ? This week ? important but not emergency) Tj
+0 -14 Td
+( | normal.md | ? Scheduled and on track ? proceeding as planned) Tj
+0 -14 Td
+( | low.md | ? Backlog ? nice to have, no deadline pressure) Tj
+0 -14 Td
+( | priority-rules.md | Rules for how agents should auto-classify urgency levels) Tj
+0 -14 Td
+(040-Skills) Tj
+0 -14 Td
+(CerebellumDefines WHAT agents can do. Skills are reusable, composable, and can be shared) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 3547 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+(across agents and tools.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | Claude-Code/Commands/ | Reusable slash commands and code snippets for Claude Code) Tj
+0 -14 Td
+( | Claude-Code/Hooks/ | Pre/post hooks and event handlers for Claude Code workflows) Tj
+0 -14 Td
+( | OpenClaw/ | OpenClaw-specific skill definitions and capability files) Tj
+0 -14 Td
+( | Shared/ | Skills usable across any agent or tool ? platform-agnostic) Tj
+0 -14 Td
+( | skill-index.md | Registry of all available skills with descriptions and status) Tj
+0 -14 Td
+(050-MCP) Tj
+0 -14 Td
+(SynapsesThe communication layer connecting agents to external tools and data sources via Model) Tj
+0 -14 Td
+(Context Protocol.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | Servers/ | MCP server configs and connection details \(filesystem, GitHub, Obsidian, etc.\)) Tj
+0 -14 Td
+( | Tools/ | Custom tool definitions exposed via MCP to agents) Tj
+0 -14 Td
+( | Resources/ | MCP resource definitions ? data sources agents can read) Tj
+0 -14 Td
+( | Prompts/ | MCP prompt templates served to connected clients) Tj
+0 -14 Td
+( | mcp-registry.md | Master index of all MCP servers, their tools, and capabilities) Tj
+0 -14 Td
+(060-Prompts) Tj
+0 -14 Td
+(NeocortexInstructions that direct higher-order processing. Separated from agent configs) Tj
+0 -14 Td
+(because prompts are composable and reusable across agents.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | System/ | System prompts and CLAUDE.md files that define agent behavior) Tj
+0 -14 Td
+( | Task/ | Reusable task-specific prompts \(e.g., summarize, analyze, generate\)) Tj
+0 -14 Td
+( | Chains/ | Multi-step prompt chains and workflows \(research ? summarize ? file\)) Tj
+0 -14 Td
+( | Fragments/ | Composable prompt snippets and partials for assembly) Tj
+0 -14 Td
+(070-Routines) Tj
+0 -14 Td
+(Autonomic NSBackground processes split into conscious \(scheduled, triggered\) and unconscious) Tj
+0 -14 Td
+(\(autonomic\), mirroring the brain's voluntary and involuntary actions.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | Autonomic/ | Always-on processes: backups, syncs, heartbeats, health checks) Tj
+0 -14 Td
+( | Scheduled/ | Cron jobs and weekly tasks ? set and forget) Tj
+0 -14 Td
+( | Triggered/ | Event-driven rules: when X happens, do Y) Tj
+0 -14 Td
+( | Pipelines/ | Multi-step orchestrated workflows chaining multiple actions) Tj
+0 -14 Td
+( | Checklists/ | Manual routines and SOPs: daily standup, weekly review, monthly audit) Tj
+0 -14 Td
+(080-Bookmarks) Tj
+0 -14 Td
+(Temporal LobeCurated external references organized by type.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File | Purpose) Tj
+0 -14 Td
+( | tools.md | Software, SaaS products, CLIs, and utilities) Tj
+0 -14 Td
+( | articles.md | Saved articles, blog posts, and long-form reads) Tj
+0 -14 Td
+( | repos.md | GitHub repositories and open-source projects) Tj
+0 -14 Td
+( | tutorials.md | How-to guides, courses, and learning resources) Tj
+0 -14 Td
+( | reference-sites.md | Frequently visited documentation sites and reference portals) Tj
+0 -14 Td
+(090-Knowledge) Tj
+0 -14 Td
+(Long-term MemoryYour own notes, calculations, strategies, and accumulated expertise organized) Tj
+0 -14 Td
+(by domain. What agents reference for domain-specific context.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | Engineering/ | Natural gas calcs, odorizer specs, pipeline notes, station data) Tj
+0 -14 Td
+( | Trading/ | Strategies, setups, portfolio notes, market analysis) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 3676 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+( | DevOps/ | Server configs, Coolify notes, Tailscale setup, hosting docs) Tj
+0 -14 Td
+( | Health/ | HRV insights, sleep data analysis, fitness protocols, wellness tracking) Tj
+0 -14 Td
+(095-Connections) Tj
+0 -14 Td
+(Corpus CallosumThe meta-layer that links knowledge across domains. Prevents folders from) Tj
+0 -14 Td
+(becoming isolated islands.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File | Purpose) Tj
+0 -14 Td
+( | map-of-content.md | Master index \(MOC\) linking related notes across the entire vault) Tj
+0 -14 Td
+( | tag-index.md | Canonical tags used across the vault with definitions) Tj
+0 -14 Td
+( | dependency-graph.md | What depends on what: projects ? skills ? agents ? MCP servers) Tj
+0 -14 Td
+( | Relations/ | Explicit link files connecting items across domains) Tj
+0 -14 Td
+(100-Context) Tj
+0 -14 Td
+(Prefrontal ContextShapes HOW agents behave in different situations through identity, rules,) Tj
+0 -14 Td
+(and contextual awareness.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | CLAUDE-files/ | CLAUDE.md files for different projects and repos) Tj
+0 -14 Td
+( | Rules/ | Coding standards, .cursorrules, .clinerules, style guides) Tj
+0 -14 Td
+( | Personas/ | Role definitions: "act as PM," "act as trader," "act as engineer") Tj
+0 -14 Td
+( | Scratchpads/ | Working memory for active agent sessions ? temporary, disposable) Tj
+0 -14 Td
+(110-Logs) Tj
+0 -14 Td
+(HippocampusEverything that happens gets recorded here. Creates an audit trail and enables) Tj
+0 -14 Td
+(agents to learn from past actions.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Subfolder | Purpose) Tj
+0 -14 Td
+( | Daily/ | Daily journal entries and standup notes) Tj
+0 -14 Td
+( | Weekly/ | Weekly review summaries and retrospectives) Tj
+0 -14 Td
+( | Decisions/ | Decision records with context, options considered, and rationale) Tj
+0 -14 Td
+( | Agent-Runs/ | Timestamped logs of agent executions: what ran, when, and output) Tj
+0 -14 Td
+(120-Templates) Tj
+0 -14 Td
+(DNA / BlueprintsStandardized patterns ensuring consistency when creating new content.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File | Purpose) Tj
+0 -14 Td
+( | project-template.md | Standard structure for new project folders) Tj
+0 -14 Td
+( | task-template.md | Format for individual task entries with status tracking) Tj
+0 -14 Td
+( | daily-log-template.md | Daily journal template with sections for wins, blockers, and focus) Tj
+0 -14 Td
+( | agent-config-template.md | Standard format for defining a new agent) Tj
+0 -14 Td
+( | skill-template.md | Template for documenting a new skill) Tj
+0 -14 Td
+( | mcp-server-template.md | Template for registering a new MCP server connection) Tj
+0 -14 Td
+( | prompt-template.md | Template for creating reusable prompts) Tj
+0 -14 Td
+(130-Archive) Tj
+0 -14 Td
+(Deep StorageRetired content that's no longer active but may be useful someday. Move completed) Tj
+0 -14 Td
+(projects, outdated configs, and deprecated skills here rather than deleting them.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(How Information Flows Through the Vault) Tj
+0 -14 Td
+(The 9-step lifecycle: Input ? Routing ? Prioritization ? Execution ? Monitoring ? Recording ?) Tj
+0 -14 Td
+(Consolidation ? Cross-linking ? Retirement? Input \(Sensory\) ? New information enters through) Tj
+0 -14 Td
+(000-Inbox) Tj
+0 -14 Td
+(? Routing \(Thalamus\) ? 015-Dashboard/routing-rules.md determines where items go) Tj
+0 -14 Td
+(? Prioritization \(Amygdala\) ? Items get urgency tags in 035-Priorities) Tj
+0 -14 Td
+(? Execution \(Prefrontal + Cerebellum\) ? Tasks get worked using Skills, executed by Agents,) Tj
+0 -14 Td
+(following Routines) Tj
+0 -14 Td
+(? Monitoring \(RAS\) ? 025-Watchlist passively monitors and triggers alerts) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 3268 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+(? Recording \(Hippocampus\) ? Everything logged in 110-Logs) Tj
+0 -14 Td
+(? Consolidation \(Long-term Memory\) ? Insights move to 090-Knowledge) Tj
+0 -14 Td
+(? Cross-linking \(Corpus Callosum\) ? 095-Connections prevents silos) Tj
+0 -14 Td
+(? Retirement \(Deep Storage\) ? Completed content moves to 130-Archive) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Project Folder Layout) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File / Subfolder | Purpose) Tj
+0 -14 Td
+( | src/ | Source code, application logic, components, scripts) Tj
+0 -14 Td
+( | docs/ | All project-specific documentation) Tj
+0 -14 Td
+( | logs/ | Project-specific activity logs and change history) Tj
+0 -14 Td
+( | CLAUDE.md | Project-specific agent context and coding instructions) Tj
+0 -14 Td
+( | .env.example | Template for environment variables \(no real values\)) Tj
+0 -14 Td
+( | README.md | Standard GitHub readme for the repository) Tj
+0 -14 Td
+(The docs/ folder) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | File | Purpose) Tj
+0 -14 Td
+( | docs/overview.md | Project summary: goals, scope, stakeholders, timeline) Tj
+0 -14 Td
+( | docs/workflow.md | Data flow, architecture diagrams, what triggers what) Tj
+0 -14 Td
+( | docs/tools.md | Tools, APIs, platforms, third-party services used) Tj
+0 -14 Td
+( | docs/data-map.md | Database schemas, API endpoints, data sources) Tj
+0 -14 Td
+( | docs/secrets.md | Environment variable names and vault paths ? never credentials) Tj
+0 -14 Td
+( | docs/phases/ | Phase breakdowns: phase-1-design.md, phase-2-build.md, etc.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(=== Folders ===) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Project Folder) Tj
+0 -14 Td
+(This page focuses on project execution standards after folder setup, including phase) Tj
+0 -14 Td
+(management, tasks.md structure, and build-vs-ops task handling.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Phases & Task Management) Tj
+0 -14 Td
+(Every project follows a six-phase lifecycle. Phases provide structure for how work progresses) Tj
+0 -14 Td
+(from idea to production, and every task is tagged with the phase it belongs to.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(The Six Phases) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | # | Phase | Code | Gate \(advance when?\)) Tj
+0 -14 Td
+( | 1 | Planning & Research | 1-Plan | Goals defined, feasibility confirmed, resources) Tj
+0 -14 Td
+(identified) Tj
+0 -14 Td
+( | 2 | Design \(UI/UX\) | 2-Design | Wireframes approved, UI/UX finalized, prototype reviewed) Tj
+0 -14 Td
+( | 3 | Development | 3-Dev | Core features built, APIs integrated, code reviewed) Tj
+0 -14 Td
+( | 4 | Testing \(QA\) | 4-QA | Critical bugs fixed, performance acceptable, security passed) Tj
+0 -14 Td
+( | 5 | Deployment | 5-Deploy | Live on production, monitoring active, rollback plan ready) Tj
+0 -14 Td
+( | 6 | Maintenance | 6-Maint | Ongoing ? no exit gateOverlap rules: Phases are overlapping,) Tj
+0 -14 Td
+(not rigid sequential. Future-phase tasks can be created and queued but must stay in Queued) Tj
+0 -14 Td
+(status until their phase activates. A phase activates when the previous phase's gate criteria) Tj
+0 -14 Td
+(are met.) Tj
+0 -14 Td
+(The tasks.md Specification) Tj
+0 -14 Td
+(One tasks.md exists per active project at 010-Projects/Active/{{ProjectName}}/tasks.md inside) Tj
+0 -14 Td
+(the vault.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Header Fields) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 3187 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+( | Field | Description) Tj
+0 -14 Td
+( | Repo | GitHub repository URL) Tj
+0 -14 Td
+( | Local | Local filesystem path \(~/Projects/{{name}}\)) Tj
+0 -14 Td
+( | Docs | Path to project documentation \(~/Projects/{{name}}/docs/\)) Tj
+0 -14 Td
+( | Branch | Active git branch \(typically main\)) Tj
+0 -14 Td
+( | Prefix | 2?3 letter project prefix for globally unique task IDs) Tj
+0 -14 Td
+( | Current Phase | Active phase with emoji indicator \(e.g., ? 3 ? Development\)) Tj
+0 -14 Td
+( | Phase Progress | Visual bar showing all six phases \(e.g., ??????\)) Tj
+0 -14 Td
+( | Last Synced | Timestamp of last update) Tj
+0 -14 Td
+(Active Tasks Table Columns) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Column | Description) Tj
+0 -14 Td
+( | ID | Globally unique: project prefix + sequential number \(e.g., ST-001\)) Tj
+0 -14 Td
+( | Task | Short, actionable description) Tj
+0 -14 Td
+( | Task Type | Workstream classification: Build or Ops) Tj
+0 -14 Td
+( | Phase | Phase code: 1-Plan, 2-Design, 3-Dev, 4-QA, 5-Deploy, 6-Maint) Tj
+0 -14 Td
+( | Status | ? Queued  ? In Progress  ? Completed  ? Failed  ?? Paused  ? Blocked) Tj
+0 -14 Td
+( | Priority | ? Critical  ? High  ? Normal  ? Low) Tj
+0 -14 Td
+( | Assignee | claude-code, openclaw, manual, or ?) Tj
+0 -14 Td
+( | Due | Target completion date) Tj
+0 -14 Td
+( | GitHub | Link to GitHub issue or PR) Tj
+0 -14 Td
+(Example tasks.md) Tj
+0 -14 Td
+(# {{ProjectName}} ? Tasks) Tj
+0 -14 Td
+(Repo: github.com/{{username}}/{{repo-name}}) Tj
+0 -14 Td
+(Local: ~/Projects/{{repo-name}}) Tj
+0 -14 Td
+(Docs: ~/Projects/{{repo-name}}/docs/) Tj
+0 -14 Td
+(Branch: main) Tj
+0 -14 Td
+(Prefix: {{PX}}-) Tj
+0 -14 Td
+(Current Phase: ? 3 ? Development) Tj
+0 -14 Td
+(Phase Progress: ??????) Tj
+0 -14 Td
+(Last Synced: 2026-02-16 09:00) Tj
+0 -14 Td
+(???) Tj
+0 -14 Td
+(## Active ? Build) Tj
+0 -14 Td
+(| ID | Task | Task Type | Phase | Status | Priority | Assignee | Due | GitHub |) Tj
+0 -14 Td
+(| {{PX}}-001 | Build alert API | Build | 3-Dev | ? In Progress | ? High | claude-code | 2/18 |) Tj
+0 -14 Td
+(#12 |) Tj
+0 -14 Td
+(| {{PX}}-002 | Rebalance logic | Build | 3-Dev | ? Queued | ? Normal | openclaw | 2/20 | #14 |) Tj
+0 -14 Td
+(| {{PX}}-003 | Write integration tests | Build | 4-QA | ? Queued | ? Low | ? | ? | ? |) Tj
+0 -14 Td
+(| {{PX}}-004 | Deploy to staging | Build | 5-Deploy| ? Queued | ? Normal | ? | ? | ? |) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Active ? Ops) Tj
+0 -14 Td
+(| ID | Task | Task Type | Category | Status | Priority | Assignee | Due | GitHub |) Tj
+0 -14 Td
+(| {{PX}}-050 | Fix null pointer in parser | Ops | ? Bug | ? In Progress | ? High | claude-code) Tj
+0 -14 Td
+(| 2/16 | #15 |) Tj
+0 -14 Td
+(| {{PX}}-051 | Update axios to v1.7 | Ops | ? Dep | ? Queued | ? Low | ? | ? | ? |) Tj
+0 -14 Td
+(| {{PX}}-052 | Add rate limiting | Ops | ? Security | ? Queued | ? High | ? | 2/19 | #16 |) Tj
+0 -14 Td
+(???) Tj
+0 -14 Td
+(## Completed) Tj
+0 -14 Td
+(| ID | Task | Type | Completed | Duration | GitHub | Notes |) Tj
+0 -14 Td
+(| {{PX}}-000 | Scaffold project repo | Build | 2026-02-12 | 2h | #1 | Initial setup |) Tj
+0 -14 Td
+(| {{PX}}-049 | Fix CORS headers | Ops | 2026-02-14 | 20m | #11 | Config fix |) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Blocked) Tj
+ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 3000 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+(| ID | Task | Type | Blocked By | Since | Notes |) Tj
+0 -14 Td
+(| {{PX}}-003 | Write integ tests | Build | {{PX}}-001 | 2026-02-15 | Needs API schema) Tj
+0 -14 Td
+(finalized |) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Build Tasks vs Ops Tasks) Tj
+0 -14 Td
+(Not every task follows a six-phase lifecycle. The system recognizes two distinct task types to) Tj
+0 -14 Td
+(avoid unnecessary overhead on one-off changes.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Two Task Types) Tj
+0 -14 Td
+(BUILD Follow the six-phase lifecycle. Features, new systems, or major changes that require) Tj
+0 -14 Td
+(planning through deployment. They have phases, dependencies, deliverables, and gate criteria.) Tj
+0 -14 Td
+(OPS Single-action items with no phase progression. Bug fixes, config changes, dependency) Tj
+0 -14 Td
+(updates, quick improvements. Created, worked, and closed.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(How to Tell Them Apart) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | | Build Task | Ops Task) Tj
+0 -14 Td
+( | Scope | Multi-step, multi-day or multi-week | Single action, hours to a day) Tj
+0 -14 Td
+( | Phases | Tagged with 1-Plan through 6-Maint | No phase ? tagged with a category) Tj
+0 -14 Td
+( | Dependencies | Often blocked by other tasks or phases | Usually standalone) Tj
+0 -14 Td
+( | Deliverable | Maps to phase objectives and milestones | The fix or change IS the deliverable) Tj
+0 -14 Td
+( | Example | Build portfolio rebalance engine | Fix null pointer in parser) Tj
+0 -14 Td
+( | Lifecycle | Queued ? In Progress ? Completed \(across phases\) | Queued ? In Progress ? Done) Tj
+0 -14 Td
+(Ops Task Categories) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Emoji | Category | Use For) Tj
+0 -14 Td
+( | ? | Bug | Defects, errors, broken behavior, regressions) Tj
+0 -14 Td
+( | ? | Dep | Dependency updates, library upgrades, version bumps) Tj
+0 -14 Td
+( | ? | Security | Vulnerability patches, auth fixes, hardening) Tj
+0 -14 Td
+( | ? | Perf | Performance improvements, optimization, caching) Tj
+0 -14 Td
+( | ? | Config | Environment changes, settings, infrastructure tweaks) Tj
+0 -14 Td
+( | ? | Docs | Documentation updates, README, inline comments) Tj
+0 -14 Td
+( | ? | Investigate | Research, debugging, root cause analysis) Tj
+0 -14 Td
+( | ? | Chore | Refactoring, cleanup, tech debt, code hygiene) Tj
+0 -14 Td
+(Task ID Numbering) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Type | ID Range | Example) Tj
+0 -14 Td
+( | Build | {{PX}}-001 to {{PX}}-049 | ST-001, ST-002, ST-003) Tj
+0 -14 Td
+( | Ops | {{PX}}-050 to {{PX}}-999 | ST-050, ST-051, ST-052) Tj
+0 -14 Td
+(Dashboard Aggregation) Tj
+0 -14 Td
+(## Project Status ? {{ProjectName}}) Tj
+0 -14 Td
+(Phase: ? 3-Dev | ??????) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Build Tasks) Tj
+0 -14 Td
+(| In Progress | Queued | Blocked | Done |) Tj
+0 -14 Td
+(| 1 | 2 | 1 | 1 |) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### Ops Tasks) Tj
+0 -14 Td
+(| In Progress | Queued | Done \(7d\) |) Tj
+0 -14 Td
+(| 1 | 2 | 1 |) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(### ?? Attention) Tj
+0 -14 Td
+(? {{PX}}-050: Fix null pointer \(High, in progress\)) Tj
+ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 191 >>
+stream
+BT
+/F1 10 Tf
+40 792 Td
+(? {{PX}}-052: Add rate limiting \(High, due 2/19\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Revision Log) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+( | Rev | Date | Changes) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Type /Pages /Kids [ 3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R ] /Count 9 >>
+endobj
+21 0 obj
+<< /Type /Catalog /Pages 20 0 R >>
+endobj
+xref
+0 22
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000003681 00000 n 
+0000003808 00000 n 
+0000007730 00000 n 
+0000007857 00000 n 
+0000011680 00000 n 
+0000011807 00000 n 
+0000015406 00000 n 
+0000015533 00000 n 
+0000019262 00000 n 
+0000019391 00000 n 
+0000022712 00000 n 
+0000022841 00000 n 
+0000026081 00000 n 
+0000026210 00000 n 
+0000029263 00000 n 
+0000029392 00000 n 
+0000029635 00000 n 
+0000029764 00000 n 
+0000029877 00000 n 
+trailer
+<< /Size 22 /Root 21 0 R >>
+startxref
+29928
+%%EOF
